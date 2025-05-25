@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	<link rel="icon" href="index_files/favicon.png" type="image/png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<meta name="description" content="Anonymous Research Paper">
+	<meta name="keywords" content="research, computer science, anonymous, placeholder">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="./style.css" rel="stylesheet" type="text/css">
+	<link href="./gruvbox.css" rel="stylesheet" type="text/css" id="theme-style" disabled>
+	<title>Refactoring Codebases through Library Design</title>
+
+	<script>
+		function copyText() {
+			var text = document.getElementById("citation-content")
+			navigator.clipboard.writeText(text.innerText)
+		}
+
+		// Theme switching functionality
+		function toggleTheme() {
+			const themeStyle = document.getElementById('theme-style');
+			const isLight = themeStyle.disabled;
+			themeStyle.disabled = !isLight;
+			
+			// Update icon
+			const icon = document.querySelector('.theme-switch i');
+			icon.className = isLight ? 'fas fa-moon' : 'fas fa-sun';
+			
+			// Save preference
+			localStorage.setItem('theme', isLight ? 'dark' : 'light');
+		}
+
+		// Set initial theme based on saved preference
+		document.addEventListener('DOMContentLoaded', () => {
+			const savedTheme = localStorage.getItem('theme');
+			if (savedTheme === 'dark') {
+				toggleTheme();
+			}
+		});
+	</script>
+</head>
+
+<body>
+	<button class="theme-switch" onclick="toggleTheme()">
+		<i class="fas fa-sun"></i>
+	</button>
+
+	<header>
+		<h1>Refactoring Codebases through Library Design</h1>
+
+		<div class="authors">
+			<div class="author-names">
+				<span class="author-block"><a href="https://zzigak.github.io/">Žiga Kovačič</a><sup>*</sup><sup>1</sup>,</span>
+				<span class="author-block"><a href="https://justinchiu.netlify.app/">Justin T Chiu</a><sup>*</sup><sup>2</sup>,</span>
+				<span class="author-block"><a href="https://celine-lee.github.io/">Celine Lee</a><sup>*</sup><sup>1</sup>,</span>
+				<span class="author-block"><a href="https://wenting-zhao.github.io/">Wenting Zhao</a><sup>1</sup>,</span>
+				<span class="author-block"><a href="https://www.cs.cornell.edu/~ellisk/">Kevin Ellis</a><sup>1</sup></span>
+			</div>
+			<div class="author-affiliations">
+				<span class="affiliation-block"><sup>1</sup>Cornell University,</span>
+				<span class="affiliation-block"><sup>2</sup>Cohere</span>
+			</div>
+		</div>
+
+		<h2>In submission at NeurIPS</h2>
+
+		<nav>
+			<ul>
+				<li><a href="#" class="nav-button"><i class="fa-solid fa-file-pdf"></i> Paper</a></li>
+				<li><a href="https://github.com/zzigak/Librarian" class="nav-button"><i class="fa-brands fa-github"></i> Code</a></li>
+				<li><a href="#citation" class="nav-button"><i class="fa-solid fa-quote-right"></i> Citation</a></li>
+			</ul>
+		</nav>
+
+		<figure id="teaser">
+			<img src="images/peef.png" alt="teaser">
+			<figcaption style="text-align: center;">The all magnificent PEEF the cat, sting in place of a teaser.</figcaption>
+		</figure>
+	</header>
+
+	<main>
+	<section>
+		<h2 id="abstract">Abstract</h2>
+		<p>Maintainable and general software allows developers to build robust applications efficiently, yet achieving these qualities often requires refactoring specialized solutions into reusable components. This challenge becomes particularly relevant as code agents become increasingly accurate at solving isolated programming problems. We investigate code agents' capacity to refactor code in ways supporting growth and reusability. We present both a method and a benchmark for refactoring: LIBRARIAN, a sample-and-rerank method for generating reusable libraries, and MINICODE, a benchmark where code agents must minimize and refactor multiple independent solutions into a joint library. Compared to state-of-the-art code agents, LIBRARIAN achieves strong results on both compression and correctness on MINICODE, obtaining compression rates 1.6-2x better than coding agents while also improving correctness. We open-source our code, benchmark, and benchmark scripting.</p>
+	</section>
+
+	<!-- <section>
+		<h2 id="video">Video</h2>
+		<iframe height="528" src="#" title="Supplemental video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	</section> -->
+
+	<section>
+		<h2 id="citation">Citation</h2>
+		<pre><button class="copy" onclick="copyText()"><i class="fa fa-clipboard"></i></button><span id="citation-content">@article{Anonymous2024,
+	author = {Anonymous User 123 and Anonymous User 456 and Anonymous User 789 and Anonymous User 101},
+	title = {Anonymous Research Paper},
+	year = {2024},
+	journal = {Conference Name},
+	volume = {1},
+	number = {1},
+	pages = {1--10},
+	doi = {10.0000/0000000}
+}</span></pre>
+	</section>
+
+	<section>
+		<h2 id="acknowledgments">Acknowledgments</h2>
+		<p>Coming soon</p>
+		<p><em>Note: This website template is inspired by <a href="https://nerfies.github.io/">Nerfies</a> and <a href="https://imaging.cs.cmu.edu/">CMU Computational Imaging Lab</a> research pages.</em></p>
+	</section>
+	</main>
+
+	<footer>
+		<p class="license">This website is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+		<p class="license">This means you are free to borrow the source code of this website, we just ask that you link back to this page in the footer. Please remember to remove the analytics code included in the header of the website which you do not want on your website.</p>
+	</footer>
+</body>
+</html>

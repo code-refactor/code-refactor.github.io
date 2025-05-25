@@ -1,0 +1,266 @@
+/* Gruvbox Dark Theme
+ * Based on the Gruvbox color palette by morhetz
+ * https://github.com/morhetz/gruvbox
+ */
+
+:root {
+    /* Gruvbox Dark Theme Colors */
+    --bg: #282828;
+    --bg0_h: #1d2021;
+    --bg0_s: #32302f;
+    --bg1: #3c3836;
+    --bg2: #504945;
+    --bg3: #665c54;
+    --bg4: #7c6f64;
+    
+    --fg: #ebdbb2;
+    --fg0: #fbf1c7;
+    --fg1: #ebdbb2;
+    --fg2: #d5c4a1;
+    --fg3: #bdae93;
+    --fg4: #a89984;
+    
+    --red: #fb4934;
+    --green: #b8bb26;
+    --yellow: #fabd2f;
+    --blue: #83a598;
+    --purple: #d3869b;
+    --aqua: #8ec07c;
+    --orange: #fe8019;
+    --gray: #928374;
+}
+
+/* Base styles */
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--fg0);
+}
+
+h1 {
+    color: var(--yellow);
+}
+
+h2 {
+    color: var(--aqua);
+}
+
+/* Links */
+a {
+    color: var(--blue);
+}
+
+a:hover, a:focus, a:active {
+    color: var(--orange);
+}
+
+/* Navigation */
+.nav-button {
+    background-color: var(--bg2);
+    color: var(--fg) !important;
+    border: 1px solid var(--bg3);
+    transition: all 0.2s ease;
+}
+
+.nav-button:hover {
+    background-color: var(--bg3);
+    color: var(--yellow) !important;
+    transform: translateY(-1px);
+}
+
+/* Icons in navigation */
+.nav-button i {
+    color: var(--fg);
+    margin-right: 0.5em;
+}
+
+.nav-button:hover i {
+    color: var(--yellow);
+}
+
+/* Authors section */
+.author-block a {
+    color: var(--blue);
+}
+
+.author-block a:hover {
+    color: var(--orange);
+}
+
+.author-block sup, .affiliation-block sup {
+    color: var(--gray);
+}
+
+.author-affiliations {
+    color: var(--fg3);
+}
+
+/* Code blocks */
+pre, code {
+    background-color: var(--bg0_s);
+    border-color: var(--bg3);
+    color: var(--fg2);
+}
+
+/* Copy button */
+.copy {
+    background-color: var(--bg2);
+    color: var(--fg);
+    border: 1px solid var(--bg3);
+}
+
+.copy:hover {
+    background-color: var(--bg3);
+    color: var(--yellow);
+}
+
+/* Teaser figure */
+#teaser figcaption {
+    color: var(--fg3);
+}
+
+/* Section headers */
+section h2 {
+    color: var(--aqua);
+    border-bottom: 1px solid var(--bg3);
+    padding-bottom: 0.5em;
+}
+
+/* Conference info */
+h2:not(section h2) {
+    color: var(--purple);
+    font-style: italic;
+}
+
+/* Abstract and main content */
+p {
+    color: var(--fg1);
+}
+
+/* Icons */
+.fa-brands, .fa-solid {
+    color: var(--fg);
+}
+
+/* Footer */
+footer {
+    color: var(--fg3);
+    border-top: 1px solid var(--bg3);
+    margin-top: 2em;
+    padding-top: 1em;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg0_h);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bg4);
+}
+
+/* Selection */
+::selection {
+    background: var(--bg3);
+    color: var(--fg0);
+}
+
+/* Iframe (for video) */
+iframe {
+    border: 1px solid var(--bg3);
+    background-color: var(--bg0_s);
+}
+
+/* Table styles */
+table {
+    border-color: var(--bg3);
+}
+
+td, th {
+    border-color: var(--bg3);
+}
+
+th {
+    background: var(--bg2);
+    color: var(--fg0);
+}
+
+/* Additional utility classes */
+.highlight {
+    color: var(--yellow);
+}
+
+.emphasis {
+    color: var(--orange);
+}
+
+.note {
+    color: var(--aqua);
+}
+
+.warning {
+    color: var(--red);
+}
+
+/* Print styles */
+@media print {
+    body {
+        background-color: white;
+        color: black;
+    }
+    
+    a {
+        color: #0000EE;
+    }
+    
+    .nav-button {
+        border: 1px solid #ccc;
+        background: none;
+        color: black !important;
+    }
+}
+
+/* Theme switch */
+.theme-switch {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    background: var(--bg2);
+    border: 1px solid var(--bg3);
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-switch:hover {
+    background: var(--bg3);
+    transform: translateY(-1px);
+}
+
+.theme-switch i {
+    color: var(--fg);
+    font-size: 1.2rem;
+}
+
+.theme-switch:hover i {
+    color: var(--yellow);
+} 
