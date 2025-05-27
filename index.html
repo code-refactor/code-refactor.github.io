@@ -34,11 +34,23 @@
 			localStorage.setItem('theme', isLight ? 'dark' : 'light');
 		}
 
-		// Set initial theme based on saved preference
+		// Set initial theme based on saved preference, defaulting to light
 		document.addEventListener('DOMContentLoaded', () => {
 			const savedTheme = localStorage.getItem('theme');
+			const themeStyle = document.getElementById('theme-style');
+			const icon = document.querySelector('.theme-switch i');
+			
+			// Default to light mode
 			if (savedTheme === 'dark') {
-				toggleTheme();
+				themeStyle.disabled = false;
+				icon.className = 'fas fa-moon';
+			} else {
+				themeStyle.disabled = true;
+				icon.className = 'fas fa-sun';
+				// Explicitly set to light if no preference is saved
+				if (!savedTheme) {
+					localStorage.setItem('theme', 'light');
+				}
 			}
 		});
 	</script>
@@ -99,7 +111,7 @@
 
 	<section class="section" id="citation">
 		<div class="container is-max-desktop content">
-			<h2 class="title">Citation</h2>
+			<h2 id="citation-header">Citation</h2>
 			<div class="citation-box">
 				<button class="copy" onclick="copyText()"><i class="fa fa-clipboard"></i></button>
 				<pre><code id="citation-content">@article{Anonymous2024,

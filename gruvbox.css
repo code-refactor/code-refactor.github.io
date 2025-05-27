@@ -263,4 +263,25 @@ th {
 
 .theme-switch:hover i {
     color: var(--yellow);
+}
+
+/* Citation section dark theme styles */
+.citation-box {
+    background-color: var(--bg0_s);
+    border: 1px solid var(--bg3);
+}
+
+#citation code {
+    color: var(--fg2);
+}
+
+#citation .copy {
+    color: var(--fg4);
+    background-color: var(--bg2);
+    border: 1px solid var(--bg3);
+}
+
+#citation .copy:hover {
+    background-color: var(--bg3);
+    color: var(--yellow);
 } 

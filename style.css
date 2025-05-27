@@ -498,15 +498,6 @@ nav > ul > li {
 	margin-top: 0;
 }
 
-.title {
-	color: #363636;
-	font-size: 2rem;
-	font-weight: 600;
-	line-height: 1.125;
-	margin-bottom: 1.5rem;
-	text-align: center;
-}
-
 .citation-box {
 	position: relative;
 	background-color: #f5f5f5;
@@ -556,10 +547,6 @@ nav > ul > li {
 @media screen and (max-width: 768px) {
 	.section {
 		padding: 1.5rem 1rem;
-	}
-	
-	.title {
-		font-size: 1.5rem;
 	}
 	
 	.citation-box {
