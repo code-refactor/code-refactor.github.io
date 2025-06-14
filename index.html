@@ -11,7 +11,6 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="./style.css" rel="stylesheet" type="text/css">
-	<link href="./gruvbox.css" rel="stylesheet" type="text/css" id="theme-style" disabled>
 	<title>Refactoring Codebases through Library Design</title>
 
 	<script>
@@ -19,48 +18,10 @@
 			var text = document.getElementById("citation-content")
 			navigator.clipboard.writeText(text.innerText)
 		}
-
-		// Theme switching functionality
-		function toggleTheme() {
-			const themeStyle = document.getElementById('theme-style');
-			const isLight = themeStyle.disabled;
-			themeStyle.disabled = !isLight;
-			
-			// Update icon
-			const icon = document.querySelector('.theme-switch i');
-			icon.className = isLight ? 'fas fa-moon' : 'fas fa-sun';
-			
-			// Save preference
-			localStorage.setItem('theme', isLight ? 'dark' : 'light');
-		}
-
-		// Set initial theme based on saved preference, defaulting to light
-		document.addEventListener('DOMContentLoaded', () => {
-			const savedTheme = localStorage.getItem('theme');
-			const themeStyle = document.getElementById('theme-style');
-			const icon = document.querySelector('.theme-switch i');
-			
-			// Default to light mode
-			if (savedTheme === 'dark') {
-				themeStyle.disabled = false;
-				icon.className = 'fas fa-moon';
-			} else {
-				themeStyle.disabled = true;
-				icon.className = 'fas fa-sun';
-				// Explicitly set to light if no preference is saved
-				if (!savedTheme) {
-					localStorage.setItem('theme', 'light');
-				}
-			}
-		});
 	</script>
 </head>
 
 <body>
-	<button class="theme-switch" onclick="toggleTheme()">
-		<i class="fas fa-sun"></i>
-	</button>
-
 	<header>
 		<h1>Refactoring Codebases through Library Design</h1>
 
@@ -109,7 +70,7 @@
 		<iframe height="528" src="#" title="Supplemental video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 	</section> -->
 
-	<section class="section" id="citation">
+	<!-- <section class="section" id="citation">
 		<div class="container is-max-desktop content">
 			<h2 id="citation-header">Citation</h2>
 			<div class="citation-box">
@@ -122,12 +83,12 @@
 }</code></pre>
 			</div>
 		</div>
-	</section>
+	</section> -->
 
-	<section>
+	<!-- <section>
 		<h2 id="acknowledgments">Acknowledgments</h2>
 		<p>Coming soon</p>
-	</section>
+	</section> -->
 	</main>
 
 	<footer>
