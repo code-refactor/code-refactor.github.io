@@ -42,9 +42,9 @@ h1 {
 }
 
 h2 {
-	font-size: 1.2em;
+	font-size: 1.5em;
 	text-align: center;
-	margin: 0.75em 0;
+	margin: 2em 0 0.75em 0;
 }
 
 /* Links */
@@ -58,6 +58,12 @@ a:hover {
 }
 
 /* Navigation */
+nav {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+
 nav > ul {
 	margin: 1em 0 1.5em 0;
 	list-style-type: none;
@@ -286,4 +292,49 @@ footer {
 	.author-notes {
 		font-size: 0.8em;
 	}
+}
+
+/* Key Contributions section */
+.contributions-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 1.5em;
+	margin: 1.5em 0;
+}
+
+.contribution-box {
+	background-color: var(--nord5);
+	border: 2px solid var(--nord4);
+	border-radius: 8px;
+	padding: 1.5em;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+}
+
+.contribution-box:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	border-color: var(--nord9);
+}
+
+.contribution-box h3 {
+	color: var(--nord10);
+	font-size: 1.3em;
+	margin: 0 0 0.8em 0;
+	font-weight: 600;
+	text-align: center;
+}
+
+.contribution-box p {
+	margin: 0;
+	line-height: 1.6;
+	color: var(--nord1);
+}
+
+.contribution-box strong {
+	color: var(--nord10);
+	font-weight: 700;
+	background-color: rgba(94, 129, 172, 0.1);
+	padding: 0.1em 0.3em;
+	border-radius: 3px;
 }

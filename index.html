@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 	<link rel="icon" href="index_files/favicon.png" type="image/png">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,8 +48,9 @@
 
 		<nav>
 			<ul>
-				<li><a href="https://code-refactor.github.io/assets/MiniCode.pdf" target="_blank" class="nav-button"><i class="fa-solid fa-file-pdf"></i> Paper</a></li>
-				<li><a href="https://github.com/code-refactor" target="_blank" class="nav-button"><i class="fa-brands fa-github"></i> Code</a></li>
+				<li><a href="https://arxiv.org/abs/2506.11058" target="_blank" class="nav-button"><i class="ai ai-arxiv"></i> arXiv</a></li>
+				<li><a href="https://github.com/code-refactor/minicode" target="_blank" class="nav-button"><i class="fa-brands fa-github"></i> MINiCODE</a></li>
+				<li><a href="https://github.com/code-refactor/Librarian" target="_blank" class="nav-button"><i class="fa-brands fa-github"></i> LIBRARIAN</a></li>
 				<li><a href="#citation" class="nav-button"><i class="fa-solid fa-quote-right"></i> Citation</a></li>
 			</ul>
 		</nav>
@@ -65,6 +67,18 @@
 	<section>
 		<h2 id="abstract">Abstract</h2>
 		<p>Maintainable and general software allows developers to build robust applications efficiently, yet achieving these qualities often requires refactoring specialized solutions into reusable components. This challenge becomes particularly relevant as code agents become increasingly accurate at solving isolated programming problems. We investigate code agents' capacity to refactor code in ways supporting growth and reusability. We present both a method and a benchmark for refactoring: Librarian, a sample-and-rerank method for generating reusable libraries, and Minicode, a benchmark where code agents must minimize and refactor multiple independent solutions into a joint library. Compared to state-of-the-art code agents, Librarian achieves strong results on both compression and correctness on Minicode, obtaining compression rates 1.6-2x better than coding agents while also improving correctness. We open-source our code, benchmark, and benchmark scripting.</p>
+	</section>
+
+	<section>
+		<h2 id="contributions">Key Contributions</h2>
+		<div class="contributions-grid">
+			<a href="https://github.com/code-refactor/Librarian" target="_blank" class="contribution-box">
+				<p><strong>LIBRARIAN</strong> is a novel sample-and-rerank method that refactors codebases into reusable libraries. It clusters code to find shared structures, samples refactorings, and ranks them by simplicity and correctness. It achieves 1.6-2x better compression than top code agents while boosting accuracy.</p>
+			</a>
+			<a href="https://github.com/code-refactor/minicode" target="_blank" class="contribution-box">
+				<p><strong>MINiCODE</strong> is a new benchmark for testing code agents' ability to create unified libraries from multiple code sources. It emphasizes open-ended design, verifiable correctness via unit tests, and large-context synthesis. It spans competition coding and synthesized repositories, filling gaps in existing benchmarks.</p>
+			</a>
+		</div>
 	</section>
 
 	<!-- <section>
