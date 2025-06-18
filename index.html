@@ -14,6 +14,31 @@
 	<link href="./style.css" rel="stylesheet" type="text/css">
 	<title>Refactoring Codebases through Library Design</title>
 
+	<!-- MathJax Configuration -->
+	<script>
+		window.MathJax = {
+			tex: {
+				inlineMath: [['$', '$'], ['\\(', '\\)']],
+				displayMath: [['$$', '$$'], ['\\[', '\\]']],
+				processEscapes: true,
+				processEnvironments: true,
+				macros: {
+					program: '\\ensuremath{\\rho}',
+					library: '\\ensuremath{\\mathcal{L}}',
+					loss: ['\\ensuremath{\\ell}\\left( #1 \\right)', 1],
+					sample: ['\\ensuremath{\\textsc{Sample}}\\left( #1 \\right)', 1],
+					instance: 'Source'
+				}
+			},
+			options: {
+				ignoreHtmlClass: 'tex2jax_ignore',
+				processHtmlClass: 'tex2jax_process'
+			}
+		};
+	</script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 	<script>
 		function copyText() {
 			var text = document.getElementById("citation-content")
@@ -79,6 +104,59 @@
 				<p><strong>Minicode</strong> is a benchmark for testing code agents' ability to create unified libraries from multiple code sources, such as competition coding programs and Python repositories. It requires open-ended design and large-context understanding in order to craft simple libraries.</p>
 			</a>
 		</div>
+	</section>
+
+	<section>
+		<h2 id="project-goal">Problem Statement</h2>
+		<p>We're tackling the challenge of refactoring code to make it more organized and efficient. Imagine you have several pieces of code that do similar things. Our goal is to create a unified library that captures the common patterns, significantly reducing the total code size while still supporting all original functionalities. This not only makes the code base smaller but also helps uncover new ways to use the code.</p>
+		
+		<h3>How We Do It</h3>
+		<p>Our approach focuses on finding refactorings that are both correct and simple.</p>
+		<ul>
+			<li><strong>Correctness</strong> is straightforward: Does the refactored code pass all the original tests?</li>
+			<li><strong>Simplicity</strong> is more nuanced. We don't just count characters; we define simplicity using <strong>Minimum Description Length (MDL)</strong>. This means we're looking for code that is not only short but also natural, elegant, and extensible—like finding the most concise yet understandable way to express an idea, rather than just the shortest, potentially unreadable, version (think "Perl Golf" where the shortest code is often incomprehensible!).</li>
+		</ul>
+
+		
+		<h3>The Math Behind It</h3>
+		<p>Formally, given a set of original programs $\{\rho_n\}_{n=1}^N$, we want to find a new library $\mathcal{L}$ and refactored programs $\{\rho'_n\}_{n=1}^N$. We optimize the following objective:</p>
+		
+		<div class="math-display">
+			$$
+			\ell(\mathcal{L}, \{\rho'_n\}) =
+			\begin{cases}
+			  -\log p_{\text{LM}}(\mathcal{L}) + \sum_n -\log p_{\text{LM}}(\rho'_n\mid\mathcal{L}) & \forall \rho_n, \, \tau(\rho_n) \leq \tau(\rho'_n) \\
+			  \infty & \text{otherwise}
+			\end{cases}
+			$$
+		</div>
+		<p style="margin-top: 1em;">
+			Here, $p_{\text{LM}}(\mathcal{L})$ is the probability of the library under a language model, and $p_{\text{LM}}(\rho'_n\mid\mathcal{L})$ is the probability of the refactored program $\rho'_n$ given the library $\mathcal{L}$. The constraint $\tau(\rho_n) \leq \tau(\rho'_n)$ ensures that the refactored programs pass at least as many tests as the originals. The loss function $\ell$ thus encourages solutions that are both correct and have minimal description length, as measured by the language model.
+		</p>
+		<p>In simpler terms, we're looking for a library and refactored programs that pass at least as many tests as the originals, and whose combined "description length" (how hard they are to describe using a language model) is minimized. This ensures our refactored code is not only correct but also intuitively simple and well-structured.</p>
+	</section>
+
+	<section>
+		<h2 id="librarian-method">Librarian: Refactoring Code to Create Libraries</h2>
+		<p>
+			Librarian is our method for refactoring existing code into a more organized and reusable library. By identifying common patterns and abstracting them into shared building blocks, Librarian compresses collections of programs while migrating them to use these new components—reducing overall code size and often improving functionality. The method operates on a simple sample-and-rerank framework, progressively building a library of useful functions to maximize our refactoring objective. <strong>Figure 1</strong> illustrates the overall process.
+		</p>
+		<p>
+			Librarian operates on a simple sample-and-rerank framework to maximize our refactoring objective described above. It maintains and grows a library of useful functions as part of this objective.
+		</p>
+		<p>Concretely, our framework follows:</p>
+		<div class="math-display">
+			$$
+			\mathcal{L}^\star, \left\{ \rho^\star_n \right\} = \arg\min_{\mathcal{L}, \left\{ \rho'_n \right\} \in \mathrm{Sample}(\left\{ \rho_n \right\})} 
+			\ell(\mathcal{L}, \left\{ \rho'_n \right\}).
+			$$
+		</div>
+		<h3>How It Works:</h3>
+		<ul>
+			<li><strong>Clustering:</strong> We group related input programs into "tuples" by having a language model summarize the code, then clustering these summaries. This focuses the language model's attention on relevant code chunks.</li>
+			<li><strong>Sampling Refactorings:</strong> For each tuple, Librarian retrieves relevant existing library functions. Then, using the original code and retrieved functions as context, a language model proposes K candidate refactorings.</li>
+			<li><strong>Ranking with Compression:</strong> All K candidates are evaluated. We select the refactoring that scores highest on quality and maintains (or improves) test accuracy compared to the original code. New, useful library functions from the chosen refactoring are then added to the Librarian library for future use.</li>
+		</ul>
 	</section>
 
 	<!-- <section>

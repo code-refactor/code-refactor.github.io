@@ -370,3 +370,61 @@ footer {
 	color: var(--nord12);
 	background-color: rgba(208, 135, 112, 0.15);
 }
+
+/* Project Goal section */
+#project-goal {
+	margin-top: 2em;
+}
+
+#project-goal h3 {
+	font-size: 1.3em;
+	margin: 1.5em 0 0.8em 0;
+	color: var(--nord0);
+	font-weight: 600;
+}
+
+#project-goal ul {
+	margin: 1em 0;
+	padding-left: 2em;
+}
+
+#project-goal li {
+	margin: 0.5em 0;
+	line-height: 1.6;
+}
+
+#project-goal strong {
+	color: var(--nord10);
+	font-weight: 600;
+}
+
+/* Math equation styling */
+.math-display {
+	text-align: center;
+	margin: 1.5em 0;
+	padding: 1em;
+	background-color: var(--nord5);
+	border-radius: 6px;
+	border: 1px solid var(--nord4);
+	overflow-x: auto;
+}
+
+.math-display .MathJax {
+	font-size: 1.1em;
+}
+
+/* Responsive adjustments for project goal section */
+@media screen and (max-width: 768px) {
+	#project-goal h3 {
+		font-size: 1.2em;
+	}
+	
+	#project-goal ul {
+		padding-left: 1.5em;
+	}
+	
+	.math-display {
+		padding: 0.75em;
+		margin: 1em 0;
+	}
+}
