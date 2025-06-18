@@ -42,10 +42,14 @@ h1 {
 }
 
 h2 {
-	font-size: 1.5em;
+	font-size: 2em;
 	text-align: center;
-	margin: 2em 0 0.75em 0;
+	margin: 2.5em 0 1em 0;
+	padding-bottom: 0.5em;
+	border-bottom: 1px solid var(--nord4);
 }
+
+/* Problem Statement uses normal h2 styling */
 
 /* Links */
 a {
@@ -201,8 +205,10 @@ nav > ul > li {
 	position: relative;
 	background-color: var(--nord5);
 	border: 1px solid var(--nord4);
-	border-radius: 4px;
-	padding: 0.5rem 0.75rem;
+	border-radius: 8px;
+	padding: 1rem 1.25rem;
+	border-left: 5px solid var(--nord10);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 #citation pre {
@@ -217,8 +223,8 @@ nav > ul > li {
 
 #citation code {
 	font-family: 'Noto Mono', monospace;
-	font-size: 0.7em;
-	line-height: 1.0;
+	font-size: 0.85em;
+	line-height: 1.4;
 	color: var(--nord1);
 	background: none;
 	padding: 0;
@@ -278,7 +284,7 @@ footer {
 	}
 	
 	#citation code {
-		font-size: 0.8em;
+		font-size: 0.85em;
 	}
 	
 	.author-block {
@@ -355,6 +361,27 @@ footer {
 	color: var(--nord1);
 }
 
+.highlight {
+	font-weight: 600;
+	padding: 0.1em 0.3em;
+	border-radius: 4px;
+}
+
+.highlight-blue {
+	color: var(--nord9);
+	background-color: rgba(129, 161, 200, 0.15);
+}
+
+.highlight-green {
+	color: #5A7C5A;
+	background-color: rgba(163, 190, 140, 0.25);
+}
+
+.highlight-orange {
+	color: var(--nord12);
+	background-color: rgba(208, 135, 112, 0.15);
+}
+
 .contribution-box strong {
 	font-weight: 700;
 	padding: 0.1em 0.3em;
@@ -371,50 +398,101 @@ footer {
 	background-color: rgba(208, 135, 112, 0.15);
 }
 
-/* Project Goal section */
-#project-goal {
-	margin-top: 2em;
-}
-
-#project-goal h3 {
-	font-size: 1.3em;
-	margin: 1.5em 0 0.8em 0;
-	color: var(--nord0);
-	font-weight: 600;
-}
-
-#project-goal ul {
-	margin: 1em 0;
-	padding-left: 2em;
-}
-
-#project-goal li {
-	margin: 0.5em 0;
-	line-height: 1.6;
-}
-
-#project-goal strong {
-	color: var(--nord10);
-	font-weight: 600;
-}
-
 /* Math equation styling */
 .math-display {
 	text-align: center;
 	margin: 1.5em 0;
-	padding: 1em;
-	background-color: var(--nord5);
-	border-radius: 6px;
-	border: 1px solid var(--nord4);
+	padding: 1.2em;
+	border-radius: 8px;
 	overflow-x: auto;
+	border: 3px solid transparent;
+	background: linear-gradient(var(--nord5), var(--nord5)) padding-box,
+	            linear-gradient(135deg, var(--nord15), var(--nord9)) border-box;
 }
 
 .math-display .MathJax {
-	font-size: 1.1em;
+	font-size: 1.2em;
+}
+
+/* Enhanced table styling with Nord theme */
+figure.table-figure {
+	display: flex;
+	flex-direction: column;
+	margin: 2em 0;
+}
+
+figure.table-figure .table-styled {
+	order: 2;
+	margin: 0;
+}
+
+figure.table-figure figcaption {
+	order: 1;
+	margin-bottom: 0.8em;
+}
+
+.table-styled {
+	width: 100%;
+	border-collapse: collapse;
+	font-family: 'Noto Serif', Georgia, serif;
+	border-top: 2px solid var(--nord1);
+	border-bottom: 2px solid var(--nord1);
+}
+
+.table-styled th,
+.table-styled td {
+	padding: 0.8em 1em;
+	text-align: left;
+	border-bottom: 1px solid var(--nord4);
+}
+
+.table-styled th {
+	background-color: transparent;
+	color: var(--nord0);
+	font-weight: 700;
+	font-size: 1em;
+	border-bottom: 2px solid var(--nord3);
+}
+
+.table-styled tbody tr {
+	background: transparent;
+}
+
+.table-styled tbody tr:nth-child(even) {
+	background-color: transparent;
+}
+
+.table-styled tbody tr:hover {
+	background-color: var(--nord5);
+}
+
+.table-styled td {
+	color: var(--nord1);
+	font-size: 0.95em;
+	line-height: 1.5;
+}
+
+.table-styled td strong {
+	color: var(--nord0);
+	font-weight: 700;
+}
+
+/* Enhanced table caption */
+figcaption {
+	text-align: center;
+	margin: 0.5em 0 0 0;
+	font-size: 0.9em;
+	color: var(--nord3);
+	font-style: italic;
 }
 
 /* Responsive adjustments for project goal section */
 @media screen and (max-width: 768px) {
+	#project-goal {
+		padding: 1.2em 1em;
+		margin-top: 1.5em;
+	}
+	
 	#project-goal h3 {
 		font-size: 1.2em;
 	}
@@ -424,7 +502,17 @@ footer {
 	}
 	
 	.math-display {
-		padding: 0.75em;
-		margin: 1em 0;
+		padding: 0.5em;
+		margin: 1.2em 0;
 	}
+	
+	.table-styled th,
+	.table-styled td {
+		padding: 0.6em 0.8em;
+	}
+}
+
+#project-goal ul li {
+	margin-bottom: 2em !important;
+	padding-bottom: 0.5em;
 }

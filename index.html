@@ -106,13 +106,16 @@
 
 	<section>
 		<h2 id="project-goal">Problem Statement</h2>
-		<p>We're tackling the challenge of refactoring code to make it more organized and efficient. Imagine you have several pieces of code that do similar things. Our goal is to create a unified library that captures the common patterns, significantly reducing the total code size while still supporting all original functionalities. This not only makes the code base smaller but also helps uncover new ways to use the code.</p>
+		<p>We study the problem of refactoring code for better organization and efficiency. Given multiple codebases with similar functionalities, our goal is to create a unified library that captures common patterns. 
+			This process should significantly reduce the total amount of code while ensuring all original functionality remains intact. 
+			
+		</p>
 		
-		<h3>How We Do It</h3>
-		<p>Our approach focuses on finding refactorings that are both correct and simple.</p>
+		<p>We evaluate refactorings based on two key principles:
+		
 		<ul>
-			<li><strong>Correctness</strong> is straightforward: Does the refactored code pass all the original tests?</li>
-			<li><strong>Simplicity</strong> is more nuanced. We don't just count characters; we define simplicity using <strong>Minimum Description Length (MDL)</strong>. This means we're looking for code that is not only short but also natural, elegant, and extensible—like finding the most concise yet understandable way to express an idea, rather than just the shortest, potentially unreadable, version (think "Perl Golf" where the shortest code is often incomprehensible!).</li>
+			<li><strong><span class="highlight highlight-green">Correctness</span> is straightforward</strong>: Does the refactored code pass all the original tests?</li>
+			<li><strong><span class="highlight highlight-blue">Simplicity</span> is more nuanced</strong>: We don't just count characters; we define simplicity using <strong class="highlight highlight-orange">Minimum Description Length (MDL)</strong>. This means we're looking for code that is not only short but also natural, elegant, and extensible—like finding the most concise yet understandable way to express an idea, rather than just the shortest, potentially unreadable, version (think "Perl Golf" where the shortest code is often incomprehensible!).</li>
 		</ul>
 
 		
@@ -155,6 +158,66 @@
 			<li><strong>Sampling Refactorings:</strong> For each tuple, Librarian retrieves relevant existing library functions. Then, using the original code and retrieved functions as context, a language model proposes K candidate refactorings.</li>
 			<li><strong>Ranking with Compression:</strong> All K candidates are evaluated. We select the refactoring that scores highest on quality and maintains (or improves) test accuracy compared to the original code. New, useful library functions from the chosen refactoring are then added to the Librarian library for future use.</li>
 		</ul>
+	</section>
+
+	<section>
+		<h2>The MINICODE Benchmark</h2>
+		<p>
+			MINICODE evaluates a <strong class="highlight highlight-blue">code agent's</strong> capability to identify abstractions across multiple implementations and design reusable <strong class="highlight highlight-orange">libraries</strong>. Agents are presented with a collection of code sources and are tasked with refactoring them into a unified library. Key desiderata for these collections are that they must be <strong class="highlight highlight-blue">compressible</strong>, containing a latent shared abstraction, and <strong class="highlight highlight-blue">verifiable</strong>, allowing functional correctness to be measured. Agents interact with the benchmark via the terminal, managing multi-package Python repositories.
+		</p>
+		
+		<h3>CodeContests Domain</h3>
+		<p>
+			Sourced from the CodeContests dataset, this domain uses competitive programming problems which naturally contain shared concepts and test cases. Each collection provides multiple solutions, and the agent's task is to create a central <code>library.py</code> file that is imported by each refactored solution.
+		</p>
+
+		<h3>Repositories Domain</h3>
+		<p>
+			This domain features synthesized projects with controlled complexity and overlap. Using a generative process, we create collections of repositories tailored to specific use cases. Agents must extract reusable functions from across these repositories and rewrite the original source code to use a new, shared <code>common</code> subpackage.
+		</p>
+	
+		<figure class="table-figure">
+			<table class="table-styled">
+				<thead>
+					<tr>
+						<th><strong>Domain</strong></th>
+						<th><strong>Sources</strong></th>
+						<th><strong>Collections</strong></th>
+						<th><strong>Avg LoC</strong></th>
+						<th><strong>Avg Tests</strong></th>
+						<th><strong>Gen by</strong></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Code Contests</td>
+						<td>300</td>
+						<td>30</td>
+						<td>87</td>
+						<td>10</td>
+						<td>Humans</td>
+					</tr>
+					<tr>
+						<td>Small Repositories</td>
+						<td>262</td>
+						<td>22</td>
+						<td>209</td>
+						<td>12</td>
+						<td>o4-mini</td>
+					</tr>
+					<tr>
+						<td>Large Repositories</td>
+						<td>20</td>
+						<td>10</td>
+						<td>6,433</td>
+						<td>101</td>
+						<td>Claude-Sonnet 3.7</td>
+					</tr>
+				</tbody>
+			</table>
+			<figcaption style="text-align: center;">Table 1: MINICODE Statistics</figcaption>
+		</figure>
+	
 	</section>
 
 	<!-- <section>
