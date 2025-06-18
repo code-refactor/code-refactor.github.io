@@ -54,8 +54,10 @@
 		</nav>
 
 		<figure id="teaser">
-			<img src="images/fig1.png" alt="teaser">
-			<figcaption style="text-align: center;">Given a collection of different code sources, where a source is either program or repository, agents must design a modular and reusable library. Libraries are evaluated by how well the refactoring compress the original code, while at least maintaining correctness.</figcaption>
+			<img src="images/minicode.svg" alt="teaser">
+			<figcaption style="text-align: center;">Overview of the problem that we study and the general structure of its solutions.
+				Given a collection of different code source, where a source is either program or repository,—and optionally an existing library—we refactor the code sources by designing a new modular and reusable library.
+				Candidate refactorings are evaluated based on program simplicity (compression), and are expected to maintain correctness of the original code sources (pass rate).</figcaption>
 		</figure>
 	</header>
 
@@ -70,20 +72,23 @@
 		<iframe height="528" src="#" title="Supplemental video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 	</section> -->
 
-	<!-- <section class="section" id="citation">
+	<section class="section" id="citation">
 		<div class="container is-max-desktop content">
 			<h2 id="citation-header">Citation</h2>
 			<div class="citation-box">
 				<button class="copy" onclick="copyText()"><i class="fa fa-clipboard"></i></button>
-				<pre><code id="citation-content">@article{Kovacic2025refactor,
-    author = {Žiga Kovačič and Celine Lee and Justin T. Chiu and Wenting Zhao and Kevin Ellis},
-    title = {Refactoring Codebases through Library Design},
-    year = {2025},
-    url = {https://code-refactor.github.io/}
+				<pre><code id="citation-content">@misc{kovacic2025refactoringcodebaseslibrarydesign,
+      title={Refactoring Codebases through Library Design}, 
+      author={Ziga Kovacic and Celine Lee and Justin Chiu and Wenting Zhao and Kevin Ellis},
+      year={2025},
+      eprint={2506.11058},
+      archivePrefix={arXiv},
+      primaryClass={cs.SE},
+      url={https://arxiv.org/abs/2506.11058}, 
 }</code></pre>
 			</div>
 		</div>
-	</section> -->
+	</section>
 
 	<!-- <section>
 		<h2 id="acknowledgments">Acknowledgments</h2>
