@@ -12,6 +12,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="./style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="./diff-viz-styles.css">
 	<title>Refactoring Codebases through Library Design</title>
 
 	<!-- MathJax Configuration -->
@@ -95,7 +96,22 @@
 	<section>
 		<h2 id="demo">Demo</h2>
 		<figure id="demo-figure">
-			<img src="images/diff-animation-natural.gif" alt="Demo animation showing Librarian's refactoring process">
+			<div class="status-badge">
+				<span class="phase-indicator"></span>
+				<span id="currentPhase">Loading...</span>
+				| Timestep <span id="timestepCount">0</span>
+			</div>
+
+			<div class="container">
+				<div class="code-panel">
+					<div class="code-header" id="libraryFileName">library.py</div>
+					<div class="code-content" id="libraryContent"></div>
+				</div>
+				<div class="code-panel">
+					<div class="code-header" id="solutionFileName">solution.py</div>
+					<div class="code-content" id="solutionContent"></div>
+				</div>
+			</div>
 			<figcaption>Librarian in action: watch as it identifies common patterns and refactors multiple code sources into shorter versions by creating a unified library with reusable components.</figcaption>
 		</figure>
 	</section>
@@ -263,5 +279,6 @@
 		<p class="license">This website template is inspired by <a href="https://nerfies.github.io/">Nerfies</a> and <a href="https://imaging.cs.cmu.edu/">CMU Computational Imaging Lab</a> research pages.</p>
 		<p class="license">Website template from <a href="https://github.com/zzigak/research-project-website">research-project-website</a>.</p>
 	</footer>
+	<script src="./script.js"></script>
 </body>
 </html>
