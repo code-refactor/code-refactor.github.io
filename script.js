@@ -1097,13 +1097,26 @@ if __name__ == "__main__":
             const lineOffsetTop = lineEl.offsetTop;
             const containerHeight = container.clientHeight;
             const lineHeight = lineEl.clientHeight;
+            const currentScroll = container.scrollTop;
             
             // Center the line in the container
             const scrollTarget = lineOffsetTop - (containerHeight / 2) + (lineHeight / 2);
             
+            // Determine scroll direction and add/subtract offset accordingly
+            const extraOffset = 30; // Extra pixels to ensure visibility
+            let finalTarget;
+            
+            if (scrollTarget > currentScroll) {
+                // Scrolling down - add extra offset
+                finalTarget = scrollTarget + extraOffset;
+            } else {
+                // Scrolling up - subtract extra offset
+                finalTarget = scrollTarget - extraOffset;
+            }
+            
             // Smoothly scroll to the target position
             container.scrollTo({
-                top: Math.max(0, scrollTarget),
+                top: Math.max(0, finalTarget),
                 behavior: 'smooth'
             });
         }
