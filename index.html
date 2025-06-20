@@ -96,20 +96,21 @@
 	<section>
 		<h2 id="demo">Demo</h2>
 		<figure id="demo-figure">
-			<div class="status-badge">
-				<span class="phase-indicator"></span>
-				<span id="currentPhase">Loading...</span>
-				| Timestep <span id="timestepCount">0</span>
-			</div>
-
-			<div class="container">
-				<div class="code-panel">
-					<div class="code-header" id="libraryFileName">library.py</div>
-					<div class="code-content" id="libraryContent"></div>
+			<div class="demo-wrapper">
+				<div class="container">
+					<div class="code-panel">
+						<div class="code-header" id="libraryFileName">library.py</div>
+						<div class="code-content" id="libraryContent"></div>
+					</div>
+					<div class="code-panel">
+						<div class="code-header" id="solutionFileName">solution.py</div>
+						<div class="code-content" id="solutionContent"></div>
+					</div>
 				</div>
-				<div class="code-panel">
-					<div class="code-header" id="solutionFileName">solution.py</div>
-					<div class="code-content" id="solutionContent"></div>
+				<div class="status-badge">
+					<span class="phase-indicator"></span>
+					<span id="currentPhase">Loading...</span>
+					| Timestep <span id="timestepCount">0</span>
 				</div>
 			</div>
 			<figcaption>Librarian in action: watch as it identifies common patterns and refactors multiple code sources into shorter versions by creating a unified library with reusable components.</figcaption>
