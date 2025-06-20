@@ -1098,27 +1098,44 @@ if __name__ == "__main__":
             const containerHeight = container.clientHeight;
             const lineHeight = lineEl.clientHeight;
             const currentScroll = container.scrollTop;
+            const scrollHeight = container.scrollHeight;
             
-            // Center the line in the container
-            const scrollTarget = lineOffsetTop - (containerHeight / 2) + (lineHeight / 2);
+            // For lines near the bottom, ensure we can see them fully
+            const bottomBuffer = 45; // Extra space at bottom (matches CSS padding)
+            const maxScroll = scrollHeight - containerHeight;
             
-            // Determine scroll direction and add/subtract offset accordingly
-            const extraOffset = 30; // Extra pixels to ensure visibility
-            let finalTarget;
+            // Check if this is a line being added near the bottom
+            const distanceFromBottom = scrollHeight - (lineOffsetTop + lineHeight);
             
-            if (scrollTarget > currentScroll) {
-                // Scrolling down - add extra offset
-                finalTarget = scrollTarget + extraOffset;
+            if (distanceFromBottom < containerHeight / 3) {
+                // Line is in bottom third - scroll to show it with buffer
+                const targetScroll = Math.min(maxScroll, lineOffsetTop - containerHeight + lineHeight + bottomBuffer);
+                container.scrollTo({
+                    top: Math.max(0, targetScroll),
+                    behavior: 'smooth'
+                });
             } else {
-                // Scrolling up - subtract extra offset
-                finalTarget = scrollTarget - extraOffset;
+                // Normal centering behavior for other lines
+                const scrollTarget = lineOffsetTop - (containerHeight / 2) + (lineHeight / 2);
+                
+                // Determine scroll direction and add/subtract offset accordingly
+                const extraOffset = 30; // Extra pixels to ensure visibility
+                let finalTarget;
+                
+                if (scrollTarget > currentScroll) {
+                    // Scrolling down - add extra offset
+                    finalTarget = scrollTarget + extraOffset;
+                } else {
+                    // Scrolling up - subtract extra offset
+                    finalTarget = scrollTarget - extraOffset;
+                }
+                
+                // Smoothly scroll to the target position
+                container.scrollTo({
+                    top: Math.max(0, Math.min(maxScroll, finalTarget)),
+                    behavior: 'smooth'
+                });
             }
-            
-            // Smoothly scroll to the target position
-            container.scrollTo({
-                top: Math.max(0, finalTarget),
-                behavior: 'smooth'
-            });
         }
     }
 
