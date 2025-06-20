@@ -75,7 +75,6 @@
 .code-line {
     display: flex;
     align-items: flex-start;
-    min-height: 24px;
     transition: background-color 0.3s ease;
     padding: 1px 0;
     border-left: 3px solid transparent;
