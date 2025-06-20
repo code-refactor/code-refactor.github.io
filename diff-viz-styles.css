@@ -238,3 +238,56 @@
     color: #006666;
     font-style: italic;
 }
+
+/* Mobile responsive font sizes */
+@media (max-width: 768px) {
+    .code-header {
+        font-size: 14px;
+    }
+    
+    .code-content {
+        font-size: 10px;
+        line-height: 15px;
+    }
+    
+    .line-number {
+        font-size: 10px;
+        width: 32px;
+        padding-right: 8px;
+    }
+    
+    .status-badge {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+    
+    .container {
+        height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .code-header {
+        font-size: 12px;
+    }
+    
+    .code-content {
+        font-size: 8px;
+        line-height: 12px;
+    }
+    
+    .line-number {
+        font-size: 8px;
+        width: 25px;
+        padding-right: 6px;
+    }
+    
+    .status-badge {
+        font-size: 10px;
+        padding: 6px 10px;
+    }
+    
+    .container {
+        height: 350px;
+    }
+}
