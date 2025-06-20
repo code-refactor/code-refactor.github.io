@@ -242,52 +242,44 @@
 /* Mobile responsive font sizes */
 @media (max-width: 768px) {
     .code-header {
-        font-size: 14px;
+        font-size: 10px;
     }
     
     .code-content {
-        font-size: 10px;
-        line-height: 15px;
+        font-size: 7px;
+        line-height: 10px;
     }
     
     .line-number {
-        font-size: 10px;
-        width: 32px;
-        padding-right: 8px;
+        font-size: 7px;
+        width: 20px;
+        padding-right: 4px;
     }
     
     .status-badge {
-        font-size: 12px;
-        padding: 8px 12px;
-    }
-    
-    .container {
-        height: 400px;
+        font-size: 8px;
+        padding: 4px 8px;
     }
 }
 
 @media (max-width: 480px) {
     .code-header {
-        font-size: 12px;
+        font-size: 8px;
     }
     
     .code-content {
-        font-size: 8px;
-        line-height: 12px;
+        font-size: 5px;
+        line-height: 8px;
     }
     
     .line-number {
-        font-size: 8px;
-        width: 25px;
-        padding-right: 6px;
+        font-size: 5px;
+        width: 15px;
+        padding-right: 3px;
     }
     
     .status-badge {
-        font-size: 10px;
-        padding: 6px 10px;
-    }
-    
-    .container {
-        height: 350px;
+        font-size: 6px;
+        padding: 3px 6px;
     }
 }
