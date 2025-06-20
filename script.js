@@ -1112,7 +1112,7 @@ if __name__ == "__main__":
                 const targetScroll = Math.min(maxScroll, lineOffsetTop - containerHeight + lineHeight + bottomBuffer);
                 container.scrollTo({
                     top: Math.max(0, targetScroll),
-                    behavior: 'smooth'
+                    behavior: 'auto'
                 });
             } else {
                 // Normal centering behavior for other lines
@@ -1133,7 +1133,7 @@ if __name__ == "__main__":
                 // Smoothly scroll to the target position
                 container.scrollTo({
                     top: Math.max(0, Math.min(maxScroll, finalTarget)),
-                    behavior: 'smooth'
+                    behavior: 'auto'
                 });
             }
         }
