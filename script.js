@@ -1100,18 +1100,18 @@ if __name__ == "__main__":
             const currentScroll = container.scrollTop;
             const scrollHeight = container.scrollHeight;
             
-            // For lines near the bottom, ensure we can see them fully
+            // Account for bottom padding in max scroll calculation
             const bottomBuffer = 45; // Extra space at bottom (matches CSS padding)
-            const maxScroll = scrollHeight - containerHeight;
+            const effectiveMaxScroll = scrollHeight - containerHeight;
             
             // Check if this is a line being added near the bottom
             const distanceFromBottom = scrollHeight - (lineOffsetTop + lineHeight);
             
-            if (distanceFromBottom < containerHeight / 3) {
-                // Line is in bottom third - scroll to show it with buffer
-                const targetScroll = Math.min(maxScroll, lineOffsetTop - containerHeight + lineHeight + bottomBuffer);
+            if (distanceFromBottom < containerHeight / 2) {
+                // Line is in bottom half - ensure it's visible with buffer
+                const targetScroll = lineOffsetTop - containerHeight + lineHeight + bottomBuffer;
                 container.scrollTo({
-                    top: Math.max(0, targetScroll),
+                    top: Math.max(0, Math.min(effectiveMaxScroll, targetScroll)),
                     behavior: 'auto'
                 });
             } else {
@@ -1130,9 +1130,9 @@ if __name__ == "__main__":
                     finalTarget = scrollTarget - extraOffset;
                 }
                 
-                // Smoothly scroll to the target position
+                // Always respect the effective max scroll limit
                 container.scrollTo({
-                    top: Math.max(0, Math.min(maxScroll, finalTarget)),
+                    top: Math.max(0, Math.min(effectiveMaxScroll, finalTarget)),
                     behavior: 'auto'
                 });
             }
