@@ -277,7 +277,6 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 					<tr>
 						<th><strong>Agent</strong></th>
 						<th><strong>Pass %</strong></th>
-						<th><strong>MDL</strong></th>
 						<th><strong>MDL %</strong></th>
 					</tr>
 				</thead>
@@ -285,25 +284,21 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 					<tr>
 						<td>original</td>
 						<td>82.0</td>
-						<td>13346.09</td>
 						<td>100.0</td>
 					</tr>
 					<tr>
 						<td>sonnet 3.7</td>
 						<td>93.9</td>
-						<td>14357.77</td>
 						<td>107.4</td>
 					</tr>
 					<tr>
 						<td>sonnet 4</td>
 						<td>84.4</td>
-						<td>10292.62</td>
 						<td>77.1</td>
 					</tr>
 					<tr>
 						<td>codex-mini</td>
 						<td>82.0</td>
-						<td>11608.58</td>
 						<td>86.8</td>
 					</tr>
 				</tbody>
@@ -332,22 +327,6 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 						<td>MDL Ratio</td>
 						<td>0.53 ±0.03</td>
 					</tr>
-					<tr>
-						<td>Token Ratio</td>
-						<td>0.66 ±0.04</td>
-					</tr>
-					<tr>
-						<td># of Library Functions</td>
-						<td>10.30 ±1.41</td>
-					</tr>
-					<tr>
-						<td>Avg Calls per Function</td>
-						<td>5.17 ±1.08</td>
-					</tr>
-					<tr>
-						<td>% Single Use Functions</td>
-						<td>38.03% ±4.88</td>
-					</tr>
 				</tbody>
 			</table>
 			<figcaption style="text-align: center;">Table 3: Refactoring results for LIBRARIAN (w/ K = 8) averaged over 10 Code Contests collections</figcaption>
@@ -357,366 +336,60 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 			<table class="table-styled">
 				<thead>
 					<tr>
-						<th><strong>Collection</strong></th>
 						<th><strong>Agent</strong></th>
-						<th><strong>LLoC</strong></th>
-						<th><strong>CC</strong></th>
 						<th><strong>MDL ratio</strong></th>
 						<th><strong>Pass rate</strong></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td rowspan="3">datapipe</td>
 						<td>original</td>
-						<td>474</td>
-						<td>116</td>
 						<td>1.0</td>
 						<td>1.0</td>
 					</tr>
 					<tr>
 						<td>Cl-Cl</td>
-						<td>1084</td>
-						<td>341</td>
-						<td>9.1</td>
-						<td>1.0</td>
+						<td>5.14</td>
+						<td>0.78</td>
 					</tr>
 					<tr>
 						<td>Cl-Cx</td>
-						<td>645</td>
-						<td>174</td>
-						<td>2.2</td>
-						<td>1.0</td>
-					</tr>
-					<tr>
-						<td rowspan="3">state_machine</td>
-						<td>original</td>
-						<td>619</td>
-						<td>222</td>
-						<td>1.0</td>
-						<td>1.0</td>
-					</tr>
-					<tr>
-						<td>Cl-Cl</td>
-						<td>2271</td>
-						<td>735</td>
-						<td>6.3</td>
-						<td>0.9</td>
-					</tr>
-					<tr>
-						<td>Cl-Cx</td>
-						<td>686</td>
-						<td>227</td>
-						<td>1.9</td>
-						<td>1.0</td>
-					</tr>
-					<tr>
-						<td rowspan="3">config_schema</td>
-						<td>original</td>
-						<td>949</td>
-						<td>284</td>
-						<td>1.0</td>
-						<td>1.0</td>
-					</tr>
-					<tr>
-						<td>Cl-Cl</td>
-						<td>922</td>
-						<td>339</td>
-						<td>2.5</td>
-						<td>failed</td>
-					</tr>
-					<tr>
-						<td>Cl-Cx</td>
-						<td>626</td>
-						<td>207</td>
-						<td>2.1</td>
-						<td>1.0</td>
-					</tr>
-					<tr>
-						<td rowspan="3">cli_tools</td>
-						<td>original</td>
-						<td>875</td>
-						<td>300</td>
-						<td>1.0</td>
-						<td>1.0</td>
-					</tr>
-					<tr>
-						<td>Cl-Cl</td>
-						<td>2925</td>
-						<td>909</td>
-						<td>4.0</td>
-						<td>1.0</td>
-					</tr>
-					<tr>
-						<td>Cl-Cx</td>
-						<td>5848</td>
-						<td>2378</td>
-						<td>3.1</td>
-						<td>failed</td>
-					</tr>
-					<tr>
-						<td rowspan="3">cli_form</td>
-						<td>original</td>
-						<td>352</td>
-						<td>174</td>
-						<td>1.0</td>
-						<td>1.0</td>
-					</tr>
-					<tr>
-						<td>Cl-Cl</td>
-						<td>855</td>
-						<td>342</td>
-						<td>3.8</td>
-						<td>1.0</td>
-					</tr>
-					<tr>
-						<td>Cl-Cx</td>
-						<td>1366</td>
-						<td>548</td>
-						<td>2.9</td>
-						<td>1.0</td>
+						<td>2.44</td>
+						<td>0.8</td>
 					</tr>
 				</tbody>
 			</table>
-			<figcaption style="text-align: center;">Table 4: Full results on MiniCode-repositories small, using Codex with o4-mini and Claude Code with Claude Sonnet 3.7</figcaption>
+			<figcaption style="text-align: center;">Table 4: Average results on MiniCode-repositories small, using Codex with o4-mini and Claude Code with Claude Sonnet 3.7</figcaption>
 		</figure>
 
 		<figure class="table-figure">
 			<table class="table-styled">
 				<thead>
 					<tr>
-						<th><strong>Collection</strong></th>
 						<th><strong>Agent</strong></th>
-						<th><strong>LLoC</strong></th>
-						<th><strong>CC</strong></th>
 						<th><strong>MDL %</strong></th>
 						<th><strong>Pass %</strong></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td rowspan="3">command_line_task_manager</td>
 						<td>original</td>
-						<td>7964</td>
-						<td>2921</td>
 						<td>100</td>
 						<td>100</td>
 					</tr>
 					<tr>
 						<td>sonnet 3.7</td>
-						<td>10387</td>
-						<td>3899</td>
-						<td>130</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 4</td>
-						<td>9515</td>
-						<td>3946</td>
-						<td>125</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td rowspan="3">concurrent_task_scheduler</td>
-						<td>original</td>
-						<td>10350</td>
-						<td>3935</td>
-						<td>100</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 3.7</td>
-						<td>18653</td>
-						<td>7165</td>
-						<td>190</td>
-						<td>80</td>
-					</tr>
-					<tr>
-						<td>sonnet 4</td>
-						<td>11491</td>
-						<td>4762</td>
-						<td>122</td>
-						<td>80</td>
-					</tr>
-					<tr>
-						<td rowspan="3">file_system_analyzer</td>
-						<td>original</td>
-						<td>3911</td>
-						<td>1338</td>
-						<td>100</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 3.7</td>
-						<td>6495</td>
-						<td>2218</td>
-						<td>160</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 4</td>
-						<td>5221</td>
-						<td>1793</td>
-						<td>130</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td rowspan="3">in_memory_database</td>
-						<td>original</td>
-						<td>4565</td>
-						<td>1671</td>
-						<td>100</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 3.7</td>
-						<td>6667</td>
-						<td>2556</td>
-						<td>150</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 4</td>
-						<td>5617</td>
-						<td>2356</td>
-						<td>131</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td rowspan="3">incremental_backup_system</td>
-						<td>original</td>
-						<td>4587</td>
-						<td>1482</td>
-						<td>100</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 3.7</td>
-						<td>5365</td>
-						<td>1788</td>
-						<td>130</td>
-						<td>failed</td>
-					</tr>
-					<tr>
-						<td>sonnet 4</td>
-						<td>6620</td>
-						<td>2168</td>
 						<td>152</td>
-						<td>60</td>
-					</tr>
-					<tr>
-						<td rowspan="3">personal_finance_tracker</td>
-						<td>original</td>
-						<td>4306</td>
-						<td>1482</td>
-						<td>100</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 3.7</td>
-						<td>7443</td>
-						<td>2512</td>
-						<td>180</td>
-						<td>63</td>
+						<td>84.3</td>
 					</tr>
 					<tr>
 						<td>sonnet 4</td>
-						<td>9212</td>
-						<td>3335</td>
-						<td>215</td>
-						<td>63</td>
-					</tr>
-					<tr>
-						<td rowspan="3">personal_knowledge_management</td>
-						<td>original</td>
-						<td>5341</td>
-						<td>1832</td>
-						<td>100</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 3.7</td>
-						<td>6357</td>
-						<td>2364</td>
-						<td>140</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 4</td>
-						<td>5575</td>
-						<td>2597</td>
-						<td>131</td>
-						<td>80</td>
-					</tr>
-					<tr>
-						<td rowspan="3">query_language_interpreter</td>
-						<td>original</td>
-						<td>5181</td>
-						<td>2105</td>
-						<td>100</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 3.7</td>
-						<td>7193</td>
-						<td>2966</td>
-						<td>140</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 4</td>
-						<td>7490</td>
-						<td>3076</td>
-						<td>142</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td rowspan="3">text_editor</td>
-						<td>original</td>
-						<td>4324</td>
-						<td>1323</td>
-						<td>100</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 3.7</td>
-						<td>5792</td>
-						<td>1822</td>
-						<td>140</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 4</td>
-						<td>6017</td>
-						<td>2308</td>
-						<td>148</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td rowspan="3">virtual_machine_emulator</td>
-						<td>original</td>
-						<td>6841</td>
-						<td>2283</td>
-						<td>100</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 3.7</td>
-						<td>10108</td>
-						<td>3580</td>
-						<td>160</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>sonnet 4</td>
-						<td>9220</td>
-						<td>3303</td>
-						<td>137</td>
-						<td>100</td>
+						<td>143.3</td>
+						<td>88.3</td>
 					</tr>
 				</tbody>
 			</table>
-			<figcaption style="text-align: center;">Table 5: Full results on MiniCode-repositories large, comparing the original code sources with Claude Sonnet 3.7 and Sonnet 4</figcaption>
+			<figcaption style="text-align: center;">Table 5: Average results on MiniCode-repositories large, comparing the original code sources with Claude Sonnet 3.7 and Sonnet 4</figcaption>
 		</figure>
 
 		Check out the paper for the full CodeContests results, as well as repository results!
