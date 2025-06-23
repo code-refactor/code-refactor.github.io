@@ -87,7 +87,25 @@ print(a)`,
                 "tags.txt": "dfs and similar\\ngraphs\\ntrees",
                 "tests/": {
                     "input_1.txt": "7 1\\n1 0 1 1 0 0 0\\n1 2\\n1 3\\n2 4\\n2 5\\n3 6\\n3 7",
-                    "output_1.txt": "2"
+                    "output_1.txt": "2",
+                    "input_2.txt": "4 1\\n1 1 0 0\\n1 2\\n1 3\\n1 4",
+                    "output_2.txt": "2",
+                    "input_3.txt": "5 2\\n1 1 0 1 1\\n1 2\\n2 3\\n3 4\\n4 5",
+                    "output_3.txt": "1",
+                    "input_4.txt": "6 1\\n1 0 1 1 0 0\\n1 2\\n1 3\\n1 4\\n1 5\\n1 6",
+                    "output_4.txt": "3",
+                    "input_5.txt": "2 1\\n1 1\\n2 1",
+                    "output_5.txt": "0",
+                    "input_6.txt": "3 2\\n1 1 1\\n1 2\\n2 3",
+                    "output_6.txt": "0",
+                    "input_7.txt": "12 3\\n1 0 1 0 1 1 1 1 0 0 0 0\\n6 7\\n12 1\\n9 7\\n1 4\\n10 7\\n7 1\\n11 8\\n5 1\\n3 7\\n5 8\\n4 2",
+                    "output_7.txt": "7",
+                    "input_8.txt": "15 2\\n1 0 1 0 1 0 0 0 0 0 0 0 0 0 0\\n1 2\\n1 3\\n2 4\\n2 5\\n3 6\\n3 7\\n4 8\\n4 9\\n5 10\\n5 11\\n6 12\\n6 13\\n7 14\\n7 15",
+                    "output_8.txt": "8",
+                    "input_9.txt": "7 3\\n1 1 1 1 1 0 1\\n1 2\\n1 3\\n2 4\\n3 5\\n5 6\\n6 7",
+                    "output_9.txt": "2",
+                    "input_10.txt": "6 1\\n1 0 1 1 0 0\\n1 2\\n2 3\\n1 4\\n1 5\\n1 6",
+                    "output_10.txt": "3"
                 }
             },
 
@@ -158,7 +176,29 @@ for i in range(n):
 
 
 print(max([findDepth(a, i) for i in roots]))`,
-                "tags.txt": "dfs and similar\\ngraphs\\ntrees"
+                "tags.txt": "dfs and similar\\ngraphs\\ntrees",
+                "tests/": {
+                    "input_1.txt": "5\\n-1\\n1\\n2\\n1\\n-1",
+                    "output_1.txt": "3",
+                    "input_2.txt": "12\\n-1\\n8\\n9\\n-1\\n4\\n2\\n11\\n1\\n-1\\n6\\n-1\\n10",
+                    "output_2.txt": "6",
+                    "input_3.txt": "5\\n4\\n5\\n1\\n-1\\n4",
+                    "output_3.txt": "3",
+                    "input_4.txt": "12\\n-1\\n9\\n11\\n6\\n6\\n-1\\n6\\n3\\n8\\n6\\n1\\n6",
+                    "output_4.txt": "6",
+                    "input_5.txt": "4\\n-1\\n1\\n2\\n3",
+                    "output_5.txt": "4",
+                    "input_6.txt": "12\\n3\\n8\\n9\\n12\\n2\\n8\\n11\\n12\\n2\\n9\\n-1\\n11",
+                    "output_6.txt": "7",
+                    "input_7.txt": "5\\n2\\n3\\n4\\n5\\n-1",
+                    "output_7.txt": "5",
+                    "input_8.txt": "12\\n-1\\n-1\\n-1\\n-1\\n-1\\n-1\\n-1\\n-1\\n-1\\n-1\\n-1\\n-1",
+                    "output_8.txt": "1",
+                    "input_9.txt": "12\\n-1\\n1\\n1\\n1\\n1\\n1\\n3\\n4\\n3\\n3\\n4\\n7",
+                    "output_9.txt": "4",
+                    "input_10.txt": "3\\n-1\\n1\\n1",
+                    "output_10.txt": "2"
+                }
             },
 
             "292_b_network_topology_9930/": {
@@ -207,7 +247,29 @@ elif c1==n-1 and cs==1:
     print("star topology")
 else:
     print("unknown topology")`,
-                "tags.txt": "graphs\\nimplementation"
+                "tags.txt": "graphs\\nimplementation",
+                "tests/": {
+                    "input_1.txt": "4 3\\n1 2\\n2 3\\n3 4",
+                    "output_1.txt": "bus topology",
+                    "input_2.txt": "4 4\\n1 2\\n2 3\\n3 4\\n4 1",
+                    "output_2.txt": "ring topology",
+                    "input_3.txt": "4 4\\n1 2\\n2 3\\n3 1\\n1 4",
+                    "output_3.txt": "unknown topology",
+                    "input_4.txt": "4 3\\n1 2\\n1 3\\n1 4",
+                    "output_4.txt": "star topology",
+                    "input_5.txt": "4 4\\n1 2\\n2 3\\n3 4\\n4 2",
+                    "output_5.txt": "unknown topology",
+                    "input_6.txt": "10 9\\n10 6\\n3 4\\n8 9\\n8 4\\n6 1\\n2 9\\n5 1\\n7 5\\n10 3",
+                    "output_6.txt": "bus topology",
+                    "input_7.txt": "10 14\\n3 2\\n7 2\\n6 4\\n8 1\\n3 9\\n5 6\\n6 3\\n4 1\\n2 5\\n7 10\\n9 5\\n7 1\\n8 10\\n3 4",
+                    "output_7.txt": "unknown topology",
+                    "input_8.txt": "6 6\\n1 2\\n2 3\\n3 1\\n4 5\\n5 6\\n6 1",
+                    "output_8.txt": "unknown topology",
+                    "input_9.txt": "4 3\\n2 4\\n1 3\\n4 1",
+                    "output_9.txt": "bus topology",
+                    "input_10.txt": "5 4\\n4 2\\n5 2\\n1 2\\n2 3",
+                    "output_10.txt": "star topology"
+                }
             },
 
             "913_b_christmas_spruce_7977/": {
@@ -258,7 +320,29 @@ if __name__ == '__main__':
             exit()
 
     print("Yes")`,
-                "tags.txt": "implementation\\ntrees"
+                "tags.txt": "implementation\\ntrees",
+                "tests/": {
+                    "input_1.txt": "4\\n1\\n1\\n1",
+                    "output_1.txt": "Yes",
+                    "input_2.txt": "8\\n1\\n1\\n1\\n1\\n3\\n3\\n3",
+                    "output_2.txt": "Yes",
+                    "input_3.txt": "7\\n1\\n1\\n1\\n2\\n2\\n2",
+                    "output_3.txt": "No",
+                    "input_4.txt": "7\\n1\\n1\\n1\\n3\\n3\\n3",
+                    "output_4.txt": "No",
+                    "input_5.txt": "3\\n1\\n1",
+                    "output_5.txt": "No",
+                    "input_6.txt": "12\\n1\\n1\\n1\\n2\\n5\\n5\\n5\\n5\\n1\\n2\\n2",
+                    "output_6.txt": "No",
+                    "input_7.txt": "13\\n1\\n2\\n2\\n2\\n1\\n6\\n6\\n6\\n1\\n10\\n10\\n10",
+                    "output_7.txt": "No",
+                    "input_8.txt": "9\\n1\\n1\\n1\\n1\\n2\\n6\\n6\\n6",
+                    "output_8.txt": "No",
+                    "input_9.txt": "20\\n1\\n1\\n1\\n1\\n2\\n2\\n2\\n3\\n3\\n3\\n4\\n4\\n4\\n5\\n5\\n5\\n1\\n1\\n1",
+                    "output_9.txt": "Yes",
+                    "input_10.txt": "8\\n1\\n1\\n1\\n1\\n5\\n5\\n5",
+                    "output_10.txt": "Yes"
+                }
             },
 
             "982_c_cut_em_all_5275/": {
@@ -318,7 +402,29 @@ threading.stack_size(10 ** 8)
 t = threading.Thread(target=main)
 t.start()
 t.join()`,
-                "tags.txt": "dfs and similar\\ndp\\ngraphs\\ngreedy\\ntrees"
+                "tags.txt": "dfs and similar\\ndp\\ngraphs\\ngreedy\\ntrees",
+                "tests/": {
+                    "input_1.txt": "4\\n2 4\\n4 1\\n3 1",
+                    "output_1.txt": "1",
+                    "input_2.txt": "2\\n1 2",
+                    "output_2.txt": "0",
+                    "input_3.txt": "10\\n7 1\\n8 4\\n8 10\\n4 7\\n6 5\\n9 3\\n3 5\\n2 10\\n2 5",
+                    "output_3.txt": "4",
+                    "input_4.txt": "3\\n1 2\\n1 3",
+                    "output_4.txt": "-1",
+                    "input_5.txt": "1",
+                    "output_5.txt": "-1",
+                    "input_6.txt": "4\\n1 2\\n1 3\\n1 4",
+                    "output_6.txt": "0",
+                    "input_7.txt": "10\\n7 1\\n8 4\\n8 10\\n4 7\\n6 10\\n9 3\\n3 5\\n2 10\\n2 5",
+                    "output_7.txt": "4",
+                    "input_8.txt": "4\\n2 4\\n2 1\\n3 1",
+                    "output_8.txt": "1",
+                    "input_9.txt": "4\\n2 4\\n2 1\\n3 2",
+                    "output_9.txt": "0",
+                    "input_10.txt": "3\\n1 2\\n2 3",
+                    "output_10.txt": "-1"
+                }
             }
         };
 
