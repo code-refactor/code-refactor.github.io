@@ -132,7 +132,7 @@
 	<section>
 		<h2 id="project-goal">Problem Statement</h2>
 		<p>Given multiple code sources that contain problem-
-specific implementations, the goal is to create a cohesive library that captures shared abstractions.
+specific implementations, we evaluate whether agents can create a cohesive library that captures shared abstractions.
 This library must reduce the total code size while supporting all original use cases, potentially opening
 up new use cases as well by mining and formalizing latent shared abstractions.
 		</p>
@@ -143,13 +143,13 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 			<li>Correct: The refactored code passes all original tests.</li>
 			<li>Simple: Elegant code is short and natural.</li>
 		</ol>
-		We measure correctness by ensuring refactored code passes at least as many tests as the original sources and simpleness via the <a href="https://en.wikipedia.org/wiki/Minimum_description_length">mininum description length (MDL)</a>. MDL, essentially the total log probability of all code under a model, captures both shortness and naturalness. This avoids issues of code golf, where shortness is achieved via code obfuscation.
+		We measure correctness by ensuring refactored code passes at least as many tests as the original sources and simpleness via the <a href="https://en.wikipedia.org/wiki/Minimum_description_length">mininum description length (MDL)</a>. MDL, essentially the total log probability of all code under a model, captures both shortness and naturalness. This avoids issues of <a href="https://en.wikipedia.org/wiki/Code_golf">code golf</a>, where shortness is achieved via code obfuscation.
 
 		<p>Formally, given a set of original programs $\{\rho_n\}_{n=1}^N$, we want to find a new library $\mathcal{L}$ and refactored programs $\{\rho'_n\}_{n=1}^N$.
         We define the pass rate $\tau(\rho_n)$ as the fraction of unit tests program $\rho_n$ passes.
         In practice we are concerned both with the case where we are refactoring several sources ($N>1$) and also the case where there is only a single large source we are refactoring ($N=1$).</p>
 
-		<p>We optimize the following objective:</p>
+		<p>Refactorings are evaluated using the following objective:</p>
 		
 		<div class="math-display">
 			$$
@@ -166,44 +166,22 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 	</section>
 
 	<section>
-		<h2 id="librarian-method">Librarian: Refactoring Code to Create Libraries</h2>
+		<h2>The MiniCode Benchmark</h2>
 		<p>
-			Librarian is our method for refactoring existing code into a more organized and reusable library. By identifying common patterns and abstracting them into shared building blocks, Librarian compresses collections of programs while migrating them to use these new components—reducing overall code size and often improving functionality. The method operates on a simple sample-and-rerank framework, progressively building a library of useful functions to maximize our refactoring objective. <strong>Figure 1</strong> illustrates the overall process.
-		</p>
-		<p>
-			Librarian operates on a simple sample-and-rerank framework to maximize our refactoring objective described above. It maintains and grows a library of useful functions as part of this objective.
-		</p>
-		<p>Concretely, our framework follows:</p>
-		<div class="math-display">
-			$$
-			\mathcal{L}^\star, \left\{ \rho^\star_n \right\} = \arg\min_{\mathcal{L}, \left\{ \rho'_n \right\} \in \mathrm{Sample}(\left\{ \rho_n \right\})} 
-			\ell(\mathcal{L}, \left\{ \rho'_n \right\}).
-			$$
-		</div>
-		<h3>How It Works:</h3>
-		<ul>
-			<li><strong>Clustering:</strong> We group related input programs into "tuples" by having a language model summarize the code, then clustering these summaries. This focuses the language model's attention on relevant code chunks.</li>
-			<li><strong>Sampling Refactorings:</strong> For each tuple, Librarian retrieves relevant existing library functions. Then, using the original code and retrieved functions as context, a language model proposes K candidate refactorings.</li>
-			<li><strong>Ranking with Compression:</strong> All K candidates are evaluated. We select the refactoring that scores highest on quality and maintains (or improves) test accuracy compared to the original code. New, useful library functions from the chosen refactoring are then added to the Librarian library for future use.</li>
-		</ul>
-	</section>
-
-	<section>
-		<h2>The MINICODE Benchmark</h2>
-		<p>
-			MINICODE evaluates a <strong class="highlight highlight-blue">code agent's</strong> capability to identify abstractions across multiple implementations and design reusable <strong class="highlight highlight-orange">libraries</strong>. Agents are presented with a collection of code sources and are tasked with refactoring them into a unified library. Key desiderata for these collections are that they must be <strong class="highlight highlight-blue">compressible</strong>, containing a latent shared abstraction, and <strong class="highlight highlight-blue">verifiable</strong>, allowing functional correctness to be measured. Agents interact with the benchmark via the terminal, managing multi-package Python repositories.
-		</p>
-		
-		<h3>CodeContests Domain</h3>
-		<p>
-			Sourced from the CodeContests dataset, this domain uses competitive programming problems which naturally contain shared concepts and test cases. Each collection provides multiple solutions, and the agent's task is to create a central <code>library.py</code> file that is imported by each refactored solution.
+    		We instantiate our evaluation across three splits of varying difficulty: large repositories, small repositories, and competition coding. In each of these domains, agents must understand a collection of code sources, synthesize a set of shared abstractions into a library, then refactor the code sources using that library.
+    		The refactored code and library are evaluated on correctness and simplicity.
 		</p>
 
-		<h3>Repositories Domain</h3>
+		<h3>Repository Split</h3>
 		<p>
-			This domain features synthesized projects with controlled complexity and overlap. Using a generative process, we create collections of repositories tailored to specific use cases. Agents must extract reusable functions from across these repositories and rewrite the original source code to use a new, shared <code>common</code> subpackage.
+			We synthesize both large-scale and small-scale Python repositories by prompting LMs. In order to obtain a collection of refactorable repositories, we prompt LMs to generate ideas then synthesize repositories by generating variations of those ideas via personas. Agents must create a unified <code>common</code> library package that gets imported into the original repository packages.
 		</p>
-	
+
+		<h3>CodeContests Split</h3>
+		<p>
+			Sourced from the CodeContests dataset, this domain uses competitive programming problems which naturally contain shared concepts and test cases. Each collection provides multiple solutions, and the agent's task is to create a central <code>library.py</code> file that is imported into each refactored solution.
+		</p>
+
 		<figure class="table-figure">
 			<table class="table-styled">
 				<thead>
@@ -243,9 +221,35 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 					</tr>
 				</tbody>
 			</table>
-			<figcaption style="text-align: center;">Table 1: MINICODE Statistics</figcaption>
+			<figcaption style="text-align: center;">Table 1: MiniCode Statistics</figcaption>
 		</figure>
-	
+
+
+
+    Check out the full benchmark <a href="https://github.com/code-refactor/minicode">here</a>.
+	</section>
+
+	<section>
+		<h2 id="librarian-method">Librarian: Refactoring Code to Create Libraries</h2>
+		<p>
+			Librarian is our method for refactoring existing code into a more organized and reusable library. By identifying common patterns and abstracting them into shared building blocks, Librarian compresses collections of programs while migrating them to use these new components—reducing overall code size and often improving functionality. The method operates on a simple sample-and-rerank framework, progressively building a library of useful functions to maximize our refactoring objective. <strong>Figure 1</strong> illustrates the overall process.
+		</p>
+		<p>
+			Librarian operates on a simple sample-and-rerank framework to maximize our refactoring objective described above. It maintains and grows a library of useful functions as part of this objective.
+		</p>
+		<p>Concretely, our framework follows:</p>
+		<div class="math-display">
+			$$
+			\mathcal{L}^\star, \left\{ \rho^\star_n \right\} = \arg\min_{\mathcal{L}, \left\{ \rho'_n \right\} \in \mathrm{Sample}(\left\{ \rho_n \right\})} 
+			\ell(\mathcal{L}, \left\{ \rho'_n \right\}).
+			$$
+		</div>
+		<h3>How It Works:</h3>
+		<ul>
+			<li><strong>Clustering:</strong> We group related input programs into "tuples" by having a language model summarize the code, then clustering these summaries. This focuses the language model's attention on relevant code chunks.</li>
+			<li><strong>Sampling Refactorings:</strong> For each tuple, Librarian retrieves relevant existing library functions. Then, using the original code and retrieved functions as context, a language model proposes K candidate refactorings.</li>
+			<li><strong>Ranking with Compression:</strong> All K candidates are evaluated. We select the refactoring that scores highest on quality and maintains (or improves) test accuracy compared to the original code. New, useful library functions from the chosen refactoring are then added to the Librarian library for future use.</li>
+		</ul>
 	</section>
 
 	<!-- <section>
