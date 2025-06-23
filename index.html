@@ -13,6 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="./style.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="./diff-viz-styles.css">
+	<link rel="stylesheet" href="./filesystem-explorer.css">
 	<title>Refactoring Codebases through Library Design</title>
 
 	<!-- MathJax Configuration -->
@@ -226,7 +227,20 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 
 
 
+    <h3>Explore a CodeContests Collection</h3>
+    <p>We visualize the original code sources as presented to a code agent below. We also provide the library and refactored solutions that Claude Sonnet 3.7 created in a refactor attempt.</p>
+   
+    <div class="filesystem-tabs-container">
+        <div class="filesystem-tabs">
+            <button class="tab-button active" onclick="switchFilesystemTab('before')">Before Refactoring</button>
+            <button class="tab-button" onclick="switchFilesystemTab('after')">After Refactoring</button>
+        </div>
+        <div id="filesystem-explorer" class="tab-content active"></div>
+        <div id="filesystem-refactored" class="tab-content"></div>
+    </div>
+
     Check out the full benchmark <a href="https://github.com/code-refactor/minicode">here</a>.
+
 	</section>
 
 	<section>
@@ -250,6 +264,7 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 			<li><strong>Sampling Refactorings:</strong> For each tuple, Librarian retrieves relevant existing library functions. Then, using the original code and retrieved functions as context, a language model proposes K candidate refactorings.</li>
 			<li><strong>Ranking with Compression:</strong> All K candidates are evaluated. We select the refactoring that scores highest on quality and maintains (or improves) test accuracy compared to the original code. New, useful library functions from the chosen refactoring are then added to the Librarian library for future use.</li>
 		</ul>
+
 	</section>
 
 	<!-- <section>
@@ -288,5 +303,23 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 		<p class="license">Website template from <a href="https://github.com/zzigak/research-project-website">research-project-website</a>.</p>
 	</footer>
 	<script src="./script.js"></script>
+	<script src="./filesystem-explorer.js"></script>
+	<script src="./filesystem-refactored.js"></script>
+	<script>
+		function switchFilesystemTab(tab) {
+			// Update tab buttons
+			document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+			document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+			
+			// Activate selected tab
+			event.target.classList.add('active');
+			
+			if (tab === 'before') {
+				document.getElementById('filesystem-explorer').classList.add('active');
+			} else {
+				document.getElementById('filesystem-refactored').classList.add('active');
+			}
+		}
+	</script>
 </body>
 </html>

@@ -1,0 +1,211 @@
+/* Filesystem Explorer Tabs */
+.filesystem-tabs-container {
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f9f9f9;
+}
+
+.filesystem-tabs {
+    display: flex;
+    background: #333;
+    margin: 0;
+    border-bottom: none;
+}
+
+.tab-button {
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    padding: 16px 24px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #bbb;
+    transition: all 0.3s ease;
+    flex: 1;
+    text-align: center;
+    position: relative;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-button:last-child {
+    border-right: none;
+}
+
+.tab-button:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ddd;
+}
+
+.tab-button.active {
+    color: #ffffff;
+    background: #f9f9f9;
+    color: #333;
+    font-weight: 700;
+    box-shadow: inset 0 3px 0 #007bff;
+}
+
+.tab-button.active::before {
+    content: '●';
+    margin-right: 8px;
+    color: #007bff;
+    font-size: 12px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content .filesystem-explorer {
+    border: none;
+    border-radius: 0;
+    margin: 0;
+}
+
+/* Filesystem Explorer Styles */
+.filesystem-explorer {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 20px 0;
+    background: #f9f9f9;
+    font-family: 'Courier New', monospace;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.filesystem-header {
+    background: #333;
+    color: white;
+    padding: 12px 16px;
+    border-bottom: 1px solid #555;
+}
+
+.filesystem-header h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.filesystem-path {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.path-segment {
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 3px;
+    transition: background 0.2s;
+}
+
+.path-segment:hover {
+    background: #555;
+}
+
+.path-separator {
+    margin: 0 4px;
+    color: #999;
+}
+
+.filesystem-content {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.directory-listing {
+    padding: 12px;
+}
+
+.directory-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 2px 0;
+    transition: background 0.2s;
+    font-size: 14px;
+}
+
+.directory-item:hover {
+    background: #e8e8e8;
+}
+
+.directory-item.directory {
+    color: #0066cc;
+    font-weight: 500;
+}
+
+.directory-item.file {
+    color: #333;
+}
+
+.directory-item.directory-back {
+    color: #666;
+    font-style: italic;
+}
+
+.file-content {
+    padding: 0;
+}
+
+.file-header {
+    background: #f0f0f0;
+    padding: 8px 16px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-back {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-back:hover {
+    background: #0056b3;
+}
+
+.file-content pre {
+    margin: 0;
+    padding: 16px;
+    background: white;
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.file-content code {
+    color: #333;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .filesystem-explorer {
+        font-size: 12px;
+    }
+    
+    .filesystem-content {
+        max-height: 400px;
+    }
+    
+    .directory-item {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+    
+    .file-content pre {
+        padding: 12px;
+        font-size: 11px;
+    }
+}

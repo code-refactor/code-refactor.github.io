@@ -1,0 +1,471 @@
+// MiniCode CodeContests Cluster0 Filesystem Explorer - Pre-refactoring State
+class FileSystemExplorerBefore {
+    constructor() {
+        this.filesystem = {
+            "INSTRUCTIONS.md": `# Instructions for Code Compression Task
+
+This document provides instructions for agents to complete the code compression benchmark task.
+
+## Objective
+
+Your task is to minimize the total amount of code needed to solve all problems by:
+1. Identifying common patterns across solutions
+2. Creating a shared library of reusable components
+3. Refactoring EVERY problem solution to use this library
+
+## Rules and Constraints
+You are free to use any bash commands to navigate the repo, such as grep or find.
+You are allowed to edit \`library.py\`, to be used in \`{problem}/main.py\`.
+However, those are the only files you can edit.
+
+IMPORTANT:
+- The import path is taken care of for you while running tests via \`bash {problem}/run.sh\`.
+- ATTEMPT TO REFACTOR EVERY \`{problem}/main.py\`.
+
+### What You Can Modify
+- **Library file (\`library.py\`)**: You can create, modify, or delete any files in this directory.
+- **Problem Solutions (\`{problem}/main.py\`)**: You can modify the main.py file in each problem directory to utilize your library. Note that the initial solutions may be incorrect and not pass all tests.
+
+### What You Cannot Modify
+- **Problem Descriptions (\`{problem}/PROBLEM.md\`)**: These files describe the problems and must not be changed.
+- **Test Files (\`{problem}/tests/\`)**: All test files are considered ground truth and must not be modified.
+- **Test Scripts (\`{problem}/run.sh\`)**: These scripts are used to test solutions and must not be changed.
+- **Problem Tags (\`{problem}/tags.txt\`)**: These files contain problem categorization and must not be changed.`,
+
+            "library.py": `"""
+Library file for cluster0.
+This contains shared code that can be imported by problems in this cluster.
+"""`,
+
+            "580_c_kefa_and_park_5570/": {
+                "PROBLEM.md": `# 580_C. Kefa and Park
+
+**ID:** 580_c_kefa_and_park_5570
+**Difficulty:** 9
+
+## Description
+
+Kefa decided to celebrate his first big salary by going to the restaurant. 
+
+He lives by an unusual park. The park is a rooted tree consisting of n vertices with the root at vertex 1. Vertex 1 also contains Kefa's house. Unfortunaely for our hero, the park also contains cats. Kefa has already found out what are the vertices with cats in them.
+
+The leaf vertices of the park contain restaurants. Kefa wants to choose a restaurant where he will go, but unfortunately he is very afraid of cats, so there is no way he will go to the restaurant if the path from the restaurant to his house contains more than m consecutive vertices with cats. 
+
+Your task is to help Kefa count the number of restaurants where he can go.
+
+## Categories
+
+- dfs and similar
+- graphs
+- trees`,
+                "main.py": `#!/usr/bin/env python3
+
+M=lambda:map(int,input().split())
+n,m=M()
+*c,=M()
+t=[[]for i in range(n)]
+v=[0]*n
+for i in range(n-1):
+    x,y=M()
+    t[x-1].append(y-1)
+    t[y-1].append(x-1)
+a=i=0
+q=[(0,0)]
+while i<len(q):
+    x,N=q[i]
+    v[x]=1
+    if c[x]+N<=m:
+        L=1
+        for y in t[x]:
+            if not v[y]:
+                L=0
+                q.append((y,c[x]*(c[x]+N)))
+        if L:
+            a+=1
+    i+=1
+print(a)`,
+                "tags.txt": "dfs and similar\\ngraphs\\ntrees",
+                "tests/": {
+                    "input_1.txt": "7 1\\n1 0 1 1 0 0 0\\n1 2\\n1 3\\n2 4\\n2 5\\n3 6\\n3 7",
+                    "output_1.txt": "2"
+                }
+            },
+
+            "116_c_party_7303/": {
+                "PROBLEM.md": `# 116_C. Party
+
+**ID:** 116_c_party_7303
+**Difficulty:** 9
+
+## Description
+
+A company has n employees numbered from 1 to n. Each employee either has no immediate manager or exactly one immediate manager, who is another employee with a different number. An employee A is said to be the superior of another employee B if at least one of the following is true:
+
+  * Employee A is the immediate manager of employee B
+  * Employee B has an immediate manager employee C such that employee A is the superior of employee C. 
+
+The company will not have a managerial cycle. That is, there will not exist an employee who is the superior of his/her own immediate manager.
+
+Today the company is going to arrange a party. This involves dividing all n employees into several groups: every employee must belong to exactly one group. Furthermore, within any single group, there must not be two employees A and B such that A is the superior of B.
+
+What is the minimum number of groups that must be formed?
+
+## Categories
+
+- dfs and similar
+- graphs
+- trees`,
+                "main.py": `#!/usr/bin/env python3
+
+def findDepth(a, i):
+    depth = 1
+    nextLevel = a[i][:]
+
+    while len(nextLevel) > 0:
+        depth += 1
+
+        children = nextLevel[:]
+
+        nextLevel = []
+
+        for child in children:
+            nextLevel += a[child]
+
+    return depth
+
+
+
+
+n = int(input())
+
+
+a = []
+for i in range(n):
+    a.append([])
+
+
+roots = []
+
+for i in range(n):
+    
+    x = int(input())
+
+    if x > 0:
+        a[x-1].append(i)
+
+    else:
+        roots.append(i)
+
+
+print(max([findDepth(a, i) for i in roots]))`,
+                "tags.txt": "dfs and similar\\ngraphs\\ntrees"
+            },
+
+            "292_b_network_topology_9930/": {
+                "PROBLEM.md": `# 292_B. Network Topology
+
+**ID:** 292_b_network_topology_9930
+**Difficulty:** 8
+
+## Description
+
+This problem uses a simplified network topology model, please read the problem statement carefully and use it as a formal document as you develop the solution.
+
+Polycarpus continues working as a system administrator in a large corporation. The computer network of this corporation consists of n computers, some of them are connected by a cable. The computers are indexed by integers from 1 to n. It's known that any two computers connected by cable directly or through other computers
+
+Polycarpus decided to find out the network's topology. A network topology is the way of describing the network configuration, the scheme that shows the location and the connections of network devices.
+
+Polycarpus knows three main network topologies: bus, ring and star. A bus is the topology that represents a shared cable with all computers connected with it. In the ring topology the cable connects each computer only with two other ones. A star is the topology where all computers of a network are connected to the single central node.
+
+## Categories
+
+- graphs
+- implementation`,
+                "main.py": `#!/usr/bin/env python3
+
+n,m=map(int,input().split())
+arr=[0]*(n+1)
+for w in range(m):
+    a,b=map(int,input().split())
+    arr[a]+=1
+    arr[b]+=1
+c1=0
+c2=0
+cs=0
+for i in range(1,n+1):
+    if arr[i]==1:
+        c1+=1
+    if arr[i]==2:
+        c2+=1
+    if arr[i]==n-1:
+        cs+=1
+if c1==2 and c2==n-2:
+    print("bus topology")
+elif c2==n:
+    print("ring topology")
+elif c1==n-1 and cs==1:
+    print("star topology")
+else:
+    print("unknown topology")`,
+                "tags.txt": "graphs\\nimplementation"
+            },
+
+            "913_b_christmas_spruce_7977/": {
+                "PROBLEM.md": `# 913_B. Christmas Spruce
+
+**ID:** 913_b_christmas_spruce_7977
+**Difficulty:** 8
+
+## Description
+
+Consider a rooted tree. A rooted tree has one special vertex called the root. All edges are directed from the root. Vertex u is called a child of vertex v and vertex v is called a parent of vertex u if there exists a directed edge from v to u. A vertex is called a leaf if it doesn't have children and has a parent.
+
+Let's call a rooted tree a spruce if its every non-leaf vertex has at least 3 leaf children. You are given a rooted tree, check whether it's a spruce.
+
+## Categories
+
+- implementation
+- trees`,
+                "main.py": `#!/usr/bin/env python3
+
+if __name__ == '__main__':
+    n = int(input())
+    nonleaf = [0 for i in range(1010)]
+    child = [[] for i in range(1010)]
+    leaf = [0 for i in range(1010)]
+
+    def dfs(s):
+        cnt = 0
+        for chd in child[s]:
+            cnt += dfs(chd)
+        leaf[s] = cnt
+        return 1 - nonleaf[s]
+
+    for i in range(2, n + 1):
+        node = int(input())
+        child[node].append(i)
+        nonleaf[node] = 1
+
+    dfs(1)
+
+    # print(nonleaf[1:n + 1])
+    # print(child[1:n + 1])
+    # print(leaf[1:n + 1])
+
+    for i in range(1, n + 1):
+        if nonleaf[i] and leaf[i] < 3:
+            print("No")
+            exit()
+
+    print("Yes")`,
+                "tags.txt": "implementation\\ntrees"
+            },
+
+            "982_c_cut_em_all_5275/": {
+                "PROBLEM.md": `# 982_C. Cut 'em all!
+
+**ID:** 982_c_cut_em_all_5275
+**Difficulty:** 9
+
+## Description
+
+You're given a tree with n vertices.
+
+Your task is to determine the maximum possible number of edges that can be removed in such a way that all the remaining connected components will have even size.
+
+## Categories
+
+- dfs and similar
+- dp
+- graphs
+- greedy
+- trees`,
+                "main.py": `#!/usr/bin/env python3
+
+from collections import  defaultdict
+import threading
+from sys import stdin,setrecursionlimit
+setrecursionlimit(300000)
+input=stdin.readline
+
+def dfs(node,g,par,sz):
+	for i in g[node]:
+		if i!=par:
+			sz[node]+=dfs(i,g,node,sz)
+	return sz[node]+1
+def main():
+	n=int(input())
+	if n%2!=0:
+		print(-1)
+		exit(0)
+	g=defaultdict(list)
+	for i in range(n-1):
+		x,y=map(int,input().strip().split())
+		g[x-1].append(y-1)
+		g[y-1].append(x-1)
+
+	sz=[0]*(n)
+	tt=[]
+	dfs(0,g,-1,sz)
+	res=0
+	# print(sz)
+	for i in range(1,n):
+		if sz[i]%2!=0:
+			res+=1
+	print(res)
+
+threading.stack_size(10 ** 8)
+t = threading.Thread(target=main)
+t.start()
+t.join()`,
+                "tags.txt": "dfs and similar\\ndp\\ngraphs\\ngreedy\\ntrees"
+            }
+        };
+
+        this.currentPath = [];
+        this.container = null;
+    }
+
+    init(containerId) {
+        this.container = document.getElementById(containerId);
+        this.render();
+    }
+
+    render() {
+        if (!this.container) return;
+
+        this.container.innerHTML = `
+            <div class="filesystem-explorer">
+                <div class="filesystem-header">
+                    <h3>🗂️ MiniCode CodeContests Collection (Before Refactoring)</h3>
+                    <div class="filesystem-path">
+                        <span class="path-segment" data-path="">📁 cluster0</span>
+                        ${this.currentPath.map((segment, index) => 
+                            `<span class="path-separator">/</span>
+                             <span class="path-segment" data-path="${this.currentPath.slice(0, index + 1).join('/')}">${segment}</span>`
+                        ).join('')}
+                    </div>
+                </div>
+                <div class="filesystem-content">
+                    ${this.renderCurrentDirectory()}
+                </div>
+            </div>
+        `;
+
+        this.attachEventListeners();
+    }
+
+    renderCurrentDirectory() {
+        const current = this.getCurrentDirectory();
+        
+        if (typeof current === 'string') {
+            return `
+                <div class="file-content">
+                    <div class="file-header">
+                        <div class="file-actions">
+                            <button class="btn-back" onclick="fsExplorerBefore.navigateBack()">← Back</button>
+                        </div>
+                    </div>
+                    <pre><code class="language-${this.getFileLanguage()}">${this.escapeHtml(current)}</code></pre>
+                </div>
+            `;
+        }
+
+        const entries = Object.entries(current || {});
+        const directories = entries.filter(([key, value]) => typeof value === 'object' && !key.includes('.'));
+        const files = entries.filter(([key, value]) => typeof value === 'string' || key.includes('.'));
+
+        return `
+            <div class="directory-listing">
+                ${this.currentPath.length > 0 ? '<div class="directory-item directory-back" onclick="fsExplorerBefore.navigateBack()">📁 ..</div>' : ''}
+                ${directories.map(([name, content]) => `
+                    <div class="directory-item directory" onclick="fsExplorerBefore.navigate('${name}')">
+                        📁 ${name}
+                    </div>
+                `).join('')}
+                ${files.map(([name, content]) => `
+                    <div class="directory-item file" onclick="fsExplorerBefore.openFile('${name}')">
+                        ${this.getFileIcon(name)} ${name}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    getCurrentDirectory() {
+        let current = this.filesystem;
+        for (const segment of this.currentPath) {
+            current = current[segment];
+        }
+        return current;
+    }
+
+    navigate(path) {
+        this.currentPath.push(path);
+        this.render();
+    }
+
+    navigateBack() {
+        if (this.currentPath.length > 0) {
+            this.currentPath.pop();
+            this.render();
+        }
+    }
+
+    openFile(filename) {
+        this.currentPath.push(filename);
+        this.render();
+    }
+
+    navigateToPath(path) {
+        if (path === '') {
+            this.currentPath = [];
+        } else {
+            this.currentPath = path.split('/').filter(p => p);
+        }
+        this.render();
+    }
+
+    getFileIcon(filename) {
+        if (filename.endsWith('.py')) return '🐍';
+        if (filename.endsWith('.md')) return '📝';
+        if (filename.endsWith('.txt')) return '📄';
+        if (filename.endsWith('.sh')) return '🔧';
+        return '📄';
+    }
+
+    getFileLanguage() {
+        const filename = this.currentPath[this.currentPath.length - 1];
+        if (filename.endsWith('.py')) return 'python';
+        if (filename.endsWith('.md')) return 'markdown';
+        if (filename.endsWith('.sh')) return 'bash';
+        return 'text';
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    attachEventListeners() {
+        const pathSegments = this.container.querySelectorAll('.path-segment');
+        pathSegments.forEach(segment => {
+            segment.addEventListener('click', (e) => {
+                const path = e.target.dataset.path;
+                this.navigateToPath(path);
+            });
+        });
+    }
+}
+
+// Initialize the before filesystem explorer
+const fsExplorerBefore = new FileSystemExplorerBefore();
+
+// Auto-initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('filesystem-explorer');
+    if (container) {
+        fsExplorerBefore.init('filesystem-explorer');
+    }
+});
