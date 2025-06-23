@@ -239,6 +239,13 @@
     font-style: italic;
 }
 
+#demo-figure figcaption {
+	font-family: 'Noto Serif', Georgia, serif;
+	font-style: italic;
+	font-size: 90%;
+	color: var(--nord3);
+}
+
 /* Mobile responsive font sizes */
 @media (max-width: 768px) {
     #demo-figure .code-header {
