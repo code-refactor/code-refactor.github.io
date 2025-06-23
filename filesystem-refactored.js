@@ -582,7 +582,7 @@ def run_with_threading(func):
 # Common input patterns
 M = lambda: map(int, input().split())`,
 
-            "580_c_kefa_and_park_5570/": {
+            "580_c_kefa_and_park_5570": {
                 "PROBLEM.md": `# 580_C. Kefa and Park
 
 **ID:** 580_c_kefa_and_park_5570
@@ -729,7 +729,7 @@ else
     exit 1
 fi`,
                 "tags.txt": "dfs and similar\\ngraphs\\ntrees",
-                "tests/": {
+                "tests": {
                     "input_1.txt": "7 1\\n1 0 1 1 0 0 0\\n1 2\\n1 3\\n2 4\\n2 5\\n3 6\\n3 7",
                     "output_1.txt": "2",
                     "input_2.txt": "4 1\\n1 1 0 0\\n1 2\\n1 3\\n1 4",
@@ -753,7 +753,7 @@ fi`,
                 }
             },
 
-            "116_c_party_7303/": {
+            "116_c_party_7303": {
                 "PROBLEM.md": `# 116_C. Party
 
 **ID:** 116_c_party_7303
@@ -878,7 +878,7 @@ else
     exit 1
 fi`,
                 "tags.txt": "dfs and similar\\ngraphs\\ntrees",
-                "tests/": {
+                "tests": {
                     "input_1.txt": "5\\n-1\\n1\\n2\\n1\\n-1",
                     "output_1.txt": "3",
                     "input_2.txt": "12\\n-1\\n8\\n9\\n-1\\n4\\n2\\n11\\n1\\n-1\\n6\\n-1\\n10",
@@ -902,7 +902,7 @@ fi`,
                 }
             },
 
-            "292_b_network_topology_9930/": {
+            "292_b_network_topology_9930": {
                 "PROBLEM.md": `# 292_B. Network Topology
 
 **ID:** 292_b_network_topology_9930
@@ -1033,7 +1033,7 @@ else
     exit 1
 fi`,
                 "tags.txt": "graphs\\nimplementation",
-                "tests/": {
+                "tests": {
                     "input_1.txt": "4 3\\n1 2\\n2 3\\n3 4",
                     "output_1.txt": "bus topology",
                     "input_2.txt": "4 4\\n1 2\\n2 3\\n3 4\\n4 1",
@@ -1057,7 +1057,7 @@ fi`,
                 }
             },
 
-            "913_b_christmas_spruce_7977/": {
+            "913_b_christmas_spruce_7977": {
                 "PROBLEM.md": `# 913_B. Christmas Spruce
 
 **ID:** 913_b_christmas_spruce_7977
@@ -1190,7 +1190,7 @@ else
     exit 1
 fi`,
                 "tags.txt": "implementation\\ntrees",
-                "tests/": {
+                "tests": {
                     "input_1.txt": "4\\n1\\n1\\n1",
                     "output_1.txt": "Yes",
                     "input_2.txt": "8\\n1\\n1\\n1\\n1\\n3\\n3\\n3",
@@ -1214,7 +1214,7 @@ fi`,
                 }
             },
 
-            "982_c_cut_em_all_5275/": {
+            "982_c_cut_em_all_5275": {
                 "PROBLEM.md": `# 982_C. Cut 'em all!
 
 **ID:** 982_c_cut_em_all_5275
@@ -1343,7 +1343,7 @@ else
     exit 1
 fi`,
                 "tags.txt": "dfs and similar\\ndp\\ngraphs\\ngreedy\\ntrees",
-                "tests/": {
+                "tests": {
                     "input_1.txt": "4\\n2 4\\n4 1\\n3 1",
                     "output_1.txt": "1",
                     "input_2.txt": "2\\n1 2",
@@ -1386,10 +1386,15 @@ fi`,
                     <h3>🗂️ MiniCode CodeContests Collection (After Refactoring)</h3>
                     <div class="filesystem-path">
                         <span class="path-segment" data-path="">📁 cluster0</span>
-                        ${this.currentPath.map((segment, index) => 
-                            `<span class="path-separator">/</span>
-                             <span class="path-segment" data-path="${this.currentPath.slice(0, index + 1).join('/')}">${segment}</span>`
-                        ).join('')}
+                        ${this.currentPath.map((segment, index) => {
+                            const pathToHere = this.currentPath.slice(0, index + 1).join('/');
+                            // Check if this is a valid navigation target (not the final file)
+                            const isValidNavTarget = index < this.currentPath.length - 1 || typeof this.getCurrentDirectory() === 'object';
+                            const clickHandler = isValidNavTarget ? `data-path="${pathToHere}"` : '';
+                            const className = isValidNavTarget ? 'path-segment' : 'path-segment path-segment-file';
+                            return `<span class="path-separator">/</span>
+                                   <span class="${className}" ${clickHandler}>${segment}</span>`;
+                        }).join('')}
                     </div>
                 </div>
                 <div class="filesystem-content">
@@ -1467,7 +1472,28 @@ fi`,
         if (path === '') {
             this.currentPath = [];
         } else {
-            this.currentPath = path.split('/').filter(p => p);
+            const segments = path.split('/').filter(p => p);
+            // For the filesystem structure, problems are at root level
+            // So we just need to validate that the full path exists
+            let current = this.filesystem;
+            let validPath = [];
+            
+            for (const segment of segments) {
+                if (current && typeof current === 'object' && current[segment] !== undefined) {
+                    current = current[segment];
+                    validPath.push(segment);
+                } else {
+                    break;
+                }
+            }
+            
+            // Only navigate if we found a valid directory path
+            if (validPath.length === segments.length && typeof current === 'object') {
+                this.currentPath = validPath;
+            } else if (validPath.length > 0) {
+                // Navigate to the deepest valid directory
+                this.currentPath = validPath;
+            }
         }
         this.render();
     }
