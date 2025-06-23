@@ -75,7 +75,7 @@
 		<nav>
 			<ul>
 				<li><a href="https://arxiv.org/abs/2506.11058" target="_blank" class="nav-button"><i class="ai ai-arxiv"></i> arXiv</a></li>
-				<li><a href="https://github.com/code-refactor/minicode" target="_blank" class="nav-button"><i class="fa-brands fa-github"></i> Minicode</a></li>
+				<li><a href="https://github.com/code-refactor/minicode" target="_blank" class="nav-button"><i class="fa-brands fa-github"></i> MiniCode</a></li>
 				<li><a href="https://github.com/code-refactor/Librarian" target="_blank" class="nav-button"><i class="fa-brands fa-github"></i> Librarian</a></li>
 				<li><a href="#citation" class="nav-button"><i class="fa-solid fa-quote-right"></i> Citation</a></li>
 			</ul>
@@ -90,7 +90,7 @@
 	<main>
 	<section>
 		<h2 id="abstract">Abstract</h2>
-		<p>Maintainable and general software allows developers to build robust applications efficiently, yet achieving these qualities often requires refactoring specialized solutions into reusable components. This challenge becomes particularly relevant as code agents become increasingly accurate at solving isolated programming problems. We investigate code agents' capacity to refactor code in ways supporting growth and reusability. We present both a method and a benchmark for refactoring: Librarian, a sample-and-rerank method for generating reusable libraries, and Minicode, a benchmark where code agents must minimize and refactor multiple independent solutions into a joint library. Compared to state-of-the-art code agents, Librarian achieves strong results on both compression and correctness on Minicode, obtaining compression rates 1.6-2x better than coding agents while also improving correctness. We open-source our code, benchmark, and benchmark scripting.</p>
+		<p>Maintainable and general software allows developers to build robust applications efficiently, yet achieving these qualities often requires refactoring specialized solutions into reusable components. This challenge becomes particularly relevant as code agents become increasingly accurate at solving isolated programming problems. We investigate code agents' capacity to refactor code in ways supporting growth and reusability. We present both a method and a benchmark for refactoring: Librarian, a sample-and-rerank method for generating reusable libraries, and MiniCode, a benchmark where code agents must minimize and refactor multiple independent solutions into a joint library. Compared to state-of-the-art code agents, Librarian achieves strong results on both compression and correctness on MiniCode, obtaining compression rates 1.6-2x better than coding agents while also improving correctness. We open-source our code, benchmark, and benchmark scripting.</p>
 	</section>
 
 	<section>
@@ -124,28 +124,32 @@
 				<p><strong>Librarian</strong> is a sample-and-rerank method that refactors codebases into reusable libraries. It clusters code to find shared structures, samples refactorings, and ranks them by simplicity and correctness. It achieves 1.6-2x better compression than top code agents while boosting accuracy.</p>
 			</a>
 			<a href="https://github.com/code-refactor/minicode" target="_blank" class="contribution-box">
-				<p><strong>Minicode</strong> is a benchmark for testing code agents' ability to create unified libraries from multiple code sources, such as competition coding programs and Python repositories. It requires open-ended design and large-context understanding in order to craft simple libraries.</p>
+				<p><strong>MiniCode</strong> is a benchmark for testing code agents' ability to create unified libraries from multiple code sources, such as competition coding programs and Python repositories. It requires open-ended design and large-context understanding in order to craft simple libraries.</p>
 			</a>
 		</div>
 	</section>
 
 	<section>
 		<h2 id="project-goal">Problem Statement</h2>
-		<p>We study the problem of refactoring code for better organization and efficiency. Given multiple codebases with similar functionalities, our goal is to create a unified library that captures common patterns. 
-			This process should significantly reduce the total amount of code while ensuring all original functionality remains intact. 
-			
+		<p>Given multiple code sources that contain problem-
+specific implementations, the goal is to create a cohesive library that captures shared abstractions.
+This library must reduce the total code size while supporting all original use cases, potentially opening
+up new use cases as well by mining and formalizing latent shared abstractions.
 		</p>
-		
-		<p>We evaluate refactorings based on two key principles:
-		
-		<ul>
-			<li><strong><span class="highlight highlight-green">Correctness</span> is straightforward</strong>: Does the refactored code pass all the original tests?</li>
-			<li><strong><span class="highlight highlight-blue">Simplicity</span> is more nuanced</strong>: We don't just count characters; we define simplicity using <strong class="highlight highlight-orange">Minimum Description Length (MDL)</strong>. This means we're looking for code that is not only short but also natural, elegant, and extensible—like finding the most concise yet understandable way to express an idea, rather than just the shortest, potentially unreadable, version (think "Perl Golf" where the shortest code is often incomprehensible!).</li>
-		</ul>
 
-		
-		<h3>Formalization</h3>
-		<p>Formally, given a set of original programs $\{\rho_n\}_{n=1}^N$, we want to find a new library $\mathcal{L}$ and refactored programs $\{\rho'_n\}_{n=1}^N$. We optimize the following objective:</p>
+		<p>Libraries and refactored sources must be:
+
+		<ol>
+			<li>Correct: The refactored code passes all original tests.</li>
+			<li>Simple: Elegant code is short and natural.</li>
+		</ol>
+		We measure correctness by ensuring refactored code passes at least as many tests as the original sources and simpleness via the <a href="https://en.wikipedia.org/wiki/Minimum_description_length">mininum description length (MDL)</a>. MDL, essentially the total log probability of all code under a model, captures both shortness and naturalness. This avoids issues of code golf, where shortness is achieved via code obfuscation.
+
+		<p>Formally, given a set of original programs $\{\rho_n\}_{n=1}^N$, we want to find a new library $\mathcal{L}$ and refactored programs $\{\rho'_n\}_{n=1}^N$.
+        We define the pass rate $\tau(\rho_n)$ as the fraction of unit tests program $\rho_n$ passes.
+        In practice we are concerned both with the case where we are refactoring several sources ($N>1$) and also the case where there is only a single large source we are refactoring ($N=1$).</p>
+
+		<p>We optimize the following objective:</p>
 		
 		<div class="math-display">
 			$$
@@ -159,7 +163,6 @@
 		<p style="margin-top: 1em;">
 			Here, $p_{\text{LM}}(\mathcal{L})$ is the probability of the library under a language model, and $p_{\text{LM}}(\rho'_n\mid\mathcal{L})$ is the probability of the refactored program $\rho'_n$ given the library $\mathcal{L}$. The constraint $\tau(\rho_n) \leq \tau(\rho'_n)$ ensures that the refactored programs pass at least as many tests as the originals. The loss function $\ell$ thus encourages solutions that are both correct and have minimal description length, as measured by the language model.
 		</p>
-		<p>In simpler terms, we're looking for a library and refactored programs that pass at least as many tests as the originals, and whose combined "description length" (how hard they are to describe using a language model) is minimized. This ensures our refactored code is not only correct but also intuitively simple and well-structured.</p>
 	</section>
 
 	<section>
