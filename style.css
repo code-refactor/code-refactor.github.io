@@ -519,6 +519,12 @@ figure.table-figure figcaption {
 	line-height: 1.5;
 }
 
+/* Right-align all columns except the first one */
+.table-styled th:not(:first-child),
+.table-styled td:not(:first-child) {
+	text-align: right;
+}
+
 .table-styled td strong {
 	color: var(--nord0);
 	font-weight: 700;
