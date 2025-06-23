@@ -267,10 +267,62 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 
 	</section>
 
-	<!-- <section>
-		<h2 id="video">Video</h2>
-		<iframe height="528" src="#" title="Supplemental video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-	</section> -->
+	<section>
+		<h2 id="results">Results</h2>
+		<p>We evaluate Librarian against state-of-the-art code agents on MiniCode across all three domains. The results demonstrate Librarian's effectiveness at creating compressed, correct refactorings.</p>
+
+		<figure class="table-figure">
+			<table class="table-styled">
+				<thead>
+					<tr>
+						<th><strong>Agent</strong></th>
+						<th><strong>Tokens</strong></th>
+						<th><strong>CC</strong></th>
+						<th><strong>Pass %</strong></th>
+						<th><strong>MDL</strong></th>
+						<th><strong>MDL %</strong></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>original</td>
+						<td>12946</td>
+						<td>238</td>
+						<td>82.0</td>
+						<td>13346.09</td>
+						<td>100.0</td>
+					</tr>
+					<tr>
+						<td>sonnet 3.7</td>
+						<td>18157</td>
+						<td>280</td>
+						<td>93.9</td>
+						<td>14357.77</td>
+						<td>107.4</td>
+					</tr>
+					<tr>
+						<td>sonnet 4</td>
+						<td>12756</td>
+						<td>224</td>
+						<td>84.4</td>
+						<td>10292.62</td>
+						<td>77.1</td>
+					</tr>
+					<tr>
+						<td>codex-mini</td>
+						<td>13178</td>
+						<td>238</td>
+						<td>82.0</td>
+						<td>11608.58</td>
+						<td>86.8</td>
+					</tr>
+				</tbody>
+			</table>
+			<figcaption style="text-align: center;">Table 2: Results on the MiniCode CodeContests split</figcaption>
+		</figure>
+
+		Check out the paper for more!
+	</section>
 
 	<section class="section" id="citation">
 		<div class="container is-max-desktop content">
