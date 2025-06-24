@@ -84,6 +84,7 @@ while i<len(q):
             a+=1
     i+=1
 print(a)`,
+                "run.sh": this.getRunShScript("580_c_kefa_and_park_5570"),
                 "tags.txt": "dfs and similar\\ngraphs\\ntrees",
                 "tests": {
                     "input_1.txt": "7 1\\n1 0 1 1 0 0 0\\n1 2\\n1 3\\n2 4\\n2 5\\n3 6\\n3 7",
@@ -176,6 +177,7 @@ for i in range(n):
 
 
 print(max([findDepth(a, i) for i in roots]))`,
+                "run.sh": this.getRunShScript("116_c_party_7303"),
                 "tags.txt": "dfs and similar\\ngraphs\\ntrees",
                 "tests": {
                     "input_1.txt": "5\\n-1\\n1\\n2\\n1\\n-1",
@@ -247,6 +249,7 @@ elif c1==n-1 and cs==1:
     print("star topology")
 else:
     print("unknown topology")`,
+                "run.sh": this.getRunShScript("292_b_network_topology_9930"),
                 "tags.txt": "graphs\\nimplementation",
                 "tests": {
                     "input_1.txt": "4 3\\n1 2\\n2 3\\n3 4",
@@ -320,6 +323,7 @@ if __name__ == '__main__':
             exit()
 
     print("Yes")`,
+                "run.sh": this.getRunShScript("913_b_christmas_spruce_7977"),
                 "tags.txt": "implementation\\ntrees",
                 "tests": {
                     "input_1.txt": "4\\n1\\n1\\n1",
@@ -402,6 +406,7 @@ threading.stack_size(10 ** 8)
 t = threading.Thread(target=main)
 t.start()
 t.join()`,
+                "run.sh": this.getRunShScript("982_c_cut_em_all_5275"),
                 "tags.txt": "dfs and similar\\ndp\\ngraphs\\ngreedy\\ntrees",
                 "tests": {
                     "input_1.txt": "4\\n2 4\\n4 1\\n3 1",
@@ -578,6 +583,93 @@ t.join()`,
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    getRunShScript(problemId) {
+        return `#!/bin/bash
+# Test script for ${problemId}
+
+# Get the absolute path to the problem directory
+PROBLEM_DIR="\$(cd "\$(dirname "\\\${BASH_SOURCE[0]}")" && pwd)"
+CLUSTER_DIR="\$(cd "\\\$PROBLEM_DIR/.." && pwd)"
+
+# Import paths - include both repo root and cluster directory
+# This allows importing from problems/cluster{i}/library.py with: from library import *
+export PYTHONPATH="\\\$CLUSTER_DIR:\\\$PYTHONPATH"
+
+# Default to main.py if no specific file is provided
+SOLUTION_FILE=\\\${1:-"\\\$PROBLEM_DIR/main.py"}
+
+# Function to run a test case
+run_test() {
+    local test_num=\$1
+    local input_file="\$PROBLEM_DIR/tests/input_\${test_num}.txt"
+    local expected_file="\$PROBLEM_DIR/tests/output_\${test_num}.txt"
+
+    if [ ! -f "\$input_file" ]; then
+        echo "Test #\$test_num: Input file not found!"
+        return 1
+    fi
+
+    if [ ! -f "\$expected_file" ]; then
+        echo "Test #\$test_num: Expected output file not found!"
+        return 1
+    fi
+
+    echo "Running test #\$test_num..."
+
+    # Run the solution with the test input using python
+    OUTPUT=\$(python "\$SOLUTION_FILE" < "\$input_file")
+    EXIT_CODE=\$?
+
+    if [ \$EXIT_CODE -ne 0 ]; then
+        echo "Test #\$test_num: Error running solution! Exit code: \$EXIT_CODE"
+        return 1
+    fi
+
+    # Read expected output
+    EXPECTED=\$(cat "\$expected_file")
+
+    # Compare outputs (ignoring trailing whitespace)
+    if [ "\$(echo "\$OUTPUT" | sed -e 's/[ \\t]*\$//')" = "\$(echo "\$EXPECTED" | sed -e 's/[ \\t]*\$//')" ]; then
+        echo "Test #\$test_num: PASSED ✅"
+        return 0
+    else
+        echo "Test #\$test_num: FAILED ❌"
+        echo "Expected:"
+        echo "\$EXPECTED"
+        echo "Got:"
+        echo "\$OUTPUT"
+        return 1
+    fi
+}
+
+# Count test files
+NUM_TESTS=\$(ls "\$PROBLEM_DIR/tests/input_"*.txt 2>/dev/null | wc -l)
+
+if [ \$NUM_TESTS -eq 0 ]; then
+    echo "No test cases found!"
+    exit 1
+fi
+
+# Run all tests
+PASSED=0
+TOTAL=\$NUM_TESTS
+
+for ((i=1; i<=\$NUM_TESTS; i++)); do
+    if run_test \$i; then
+        PASSED=\$((PASSED+1))
+    fi
+done
+
+echo "Results: \$PASSED/\$TOTAL tests passed"
+echo "\$PASSED/\$TOTAL" > \$PROBLEM_DIR/results.txt
+
+if [ \$PASSED -eq \$TOTAL ]; then
+    exit 0
+else
+    exit 1
+fi`;
     }
 
     attachEventListeners() {
