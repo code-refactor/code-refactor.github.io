@@ -1,41 +1,35 @@
 /* Color Palettes Reference */
 :root {
-	/* Nord Light Palette */
-	--nord0: #2E3440;  /* Darkest Gray (Headings) */
-	--nord1: #3B4252;  /* Dark Gray */
-	--nord3: #4C566A;  /* Gray (Muted Text) */
-	--nord4: #D8DEE9;  /* Light Gray (Borders) */
-	--nord5: #E5E9F0;  /* Lighter Gray (Alt BG) */
-	--nord6: #ECEFF4;  /* Lightest Gray (Main BG) */
-	--nord9: #81A1C8;  /* Blue (Link Hover) */
-	--nord10: #5E81AC; /* Darker Blue (Links) */
-	--nord12: #D08770; /* Orange */
-	--nord13: #EBCB8B; /* Yellow */
-	--nord14: #A3BE8C; /* Green */
-	--nord15: #b48ead; /* Purple */
+	/* Blog-inspired color scheme */
+	--primary-blue: #598be7;  /* Main blue accent */
+	--blue-hover: #9bb9f1;     /* Blue hover state */
+	--text-dark: #000000;      /* Dark text */
+	--text-gray: #666666;      /* Muted text */
+	--bg-light: #ffffff;       /* Main background */
+	--bg-alt: #f8f9fa;         /* Alternative background */
+	--border-light: #e9ecef;   /* Light borders */
+	--nord12: #D08770;         /* Orange (keeping for contributions) */
+	--nord14: #A3BE8C;         /* Green (keeping for contributions) */
+	--nord15: #b48ead;         /* Purple (keeping for contributions) */
 }
 
 /* Base Styles */
 body {
-	font-family: 'Noto Serif', Georgia, serif;
-	font-size: 16px;
-	line-height: 1.5;
+	font-family: 'Source Sans Pro', 'Lato', Verdana, Helvetica, sans-serif;
+	font-size: 15px;
+	line-height: 1.6;
 	font-weight: 400;
-	background-color: var(--nord6);
-	color: var(--nord1);
+	background-color: var(--bg-light);
+	color: #000000;
 	max-width: 60em;
 	margin: auto;
 	padding: 2em 1em;
+	-webkit-font-smoothing: antialiased;
 }
 
-/* Abstract section with darker background */
+/* Abstract section - no special styling */
 section:has(#abstract) {
-	background-color: var(--nord5);
-	padding: 2em 1.5em;
-	margin: 2em -1.5em;
-	border-radius: 8px;
-	border: 1px solid var(--nord4);
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+	/* No special background or border styling */
 }
 
 /* Fallback for browsers that don't support :has() */
@@ -49,15 +43,35 @@ section:has(#abstract) {
 
 /* Headers */
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Noto Serif', Georgia, serif;
-	font-weight: 600;
-	color: var(--nord0);
+	font-family: 'Source Sans Pro', 'Lato', Verdana, Helvetica, sans-serif;
+	font-weight: 500;
+	color: rgb(51, 51, 51);
 }
 
 h1 {
 	text-align: center;
-	font-size: 2.5em;
+	font-size: 2.1em;
 	margin: 0.75em 0 0.35em 0;
+	color: rgb(51, 51, 51);
+	font-weight: 600;
+}
+
+h3 {
+	font-weight: 550;
+}
+
+h4 {
+	font-weight: 550;
+}
+
+/* Links in main content - make them bold */
+main a, section a {
+	font-weight: 600;
+}
+
+/* Make strong elements slightly less bold */
+strong {
+	font-weight: 550;
 }
 
 h2 {
@@ -65,19 +79,20 @@ h2 {
 	text-align: center;
 	margin: 2.5em 0 1em 0;
 	padding-bottom: 0.5em;
-	border-bottom: 1px solid var(--nord4);
+	border-bottom: 1px solid #cccccc;
 }
 
 /* Problem Statement uses normal h2 styling */
 
 /* Links */
-a {
-	color: var(--nord10);
+a, a:focus {
+	color: var(--primary-blue);
 	text-decoration: none;
 }
 
 a:hover {
-	color: var(--nord9);
+	color: var(--blue-hover);
+	text-decoration: none;
 }
 
 /* Navigation */
@@ -103,18 +118,18 @@ nav > ul > li {
 .nav-button {
 	display: inline-block;
 	padding: 0.35em 0.75em;
-	background-color: var(--nord5);
-	border: 1px solid var(--nord4);
+	background-color: #f8f9fa;
+	border: 1px solid var(--border-light);
 	border-radius: 4px;
-	color: var(--nord10) !important;
+	color: #666666 !important;
 	text-decoration: none;
 	transition: all 0.2s ease;
 	font-size: 0.9em;
 }
 
 .nav-button:hover {
-	background-color: var(--nord4);
-	color: var(--nord9) !important;
+	background-color: var(--border-light);
+	color: #999999 !important;
 	transform: translateY(-1px);
 }
 
@@ -145,23 +160,23 @@ nav > ul > li {
 }
 
 .author-block a {
-	color: var(--nord10);
+	color: var(--primary-blue);
 	text-decoration: none;
-	font-weight: bold;
+	font-weight: 600;
 	padding: 0 0.1em;
 }
 
 .author-block a:hover {
-	color: var(--nord9);
+	color: var(--blue-hover);
 }
 
 .author-block sup, .affiliation-block sup {
-	color: var(--nord3);
+	color: #999999;
 }
 
 .author-affiliations {
 	font-size: 0.9em;
-	color: var(--nord3);
+	color: #555555;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -177,7 +192,7 @@ nav > ul > li {
 .author-notes {
 	margin-top: 0.5em;
 	font-size: 0.85em;
-	color: var(--nord3);
+	color: #e0e0e0;
 }
 
 /* Teaser figure */
@@ -189,15 +204,16 @@ nav > ul > li {
 	width: 100%;
 	margin: 0 0 0.5em 0;
 	border-radius: 8px;
-	border: 3px solid var(--nord4);
+	border: 3px solid var(--border-light);
 	padding: 1em;
 	box-sizing: border-box;
+	max-width: 100%;
 }
 
 #teaser > figcaption {
 	font-style: italic;
 	font-size: 90%;
-	color: var(--nord3);
+	color: #666666;
 }
 
 /* Demo section */
@@ -208,20 +224,20 @@ nav > ul > li {
 
 #demo-figure > img {
 	width: 100%;
-	max-width: 900px;
+	max-width: 100%;
 	margin: 0;
 	border-radius: 8px;
-	border: 3px solid var(--nord4);
+	border: 3px solid var(--border-light);
 	padding: 1em;
 	box-sizing: border-box;
-	background-color: var(--nord6);
+	background-color: var(--bg-light);
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 #demo-figure > figcaption {
 	font-style: italic;
 	font-size: 90%;
-	color: var(--nord3);
+	color: #666666;
 	text-align: center;
 	max-width: 700px;
 	margin: 0 auto 1.5em auto;
@@ -250,11 +266,11 @@ nav > ul > li {
 
 .citation-box {
 	position: relative;
-	background-color: var(--nord5);
-	border: 1px solid var(--nord4);
+	background-color: var(--bg-alt);
+	border: 1px solid var(--border-light);
 	border-radius: 8px;
 	padding: 1rem 1.25rem;
-	border-left: 5px solid var(--nord10);
+	border-left: 5px solid var(--primary-blue);
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
@@ -269,10 +285,10 @@ nav > ul > li {
 }
 
 #citation code {
-	font-family: 'Noto Mono', monospace;
+	font-family: 'Source Code Pro', monospace;
 	font-size: 0.85em;
 	line-height: 1.4;
-	color: var(--nord1);
+	color: #000000;
 	background: none;
 	padding: 0;
 	border: none;
@@ -285,7 +301,7 @@ nav > ul > li {
 	top: 0.5rem;
 	background: none;
 	border: none;
-	color: var(--nord3);
+	color: #999999;
 	cursor: pointer;
 	padding: 0.1rem;
 	border-radius: 0.25rem;
@@ -293,17 +309,17 @@ nav > ul > li {
 }
 
 #citation .copy:hover {
-	background-color: var(--nord4);
-	color: var(--nord10);
+	background-color: var(--border-light);
+	color: var(--primary-blue);
 }
 
 /* Footer */
 footer {
 	margin-top: 3em;
 	padding-top: 1em;
-	border-top: 1px solid var(--nord4);
+	border-top: 1px solid #cccccc;
 	font-size: 0.9em;
-	color: var(--nord3);
+	color: #999999;
 }
 
 .license {
@@ -313,11 +329,11 @@ footer {
 }
 
 .license a {
-	color: var(--nord10);
+	color: var(--primary-blue);
 }
 
 .license a:hover {
-	color: var(--nord9);
+	color: var(--blue-hover);
 }
 
 /* Responsive design */
@@ -363,13 +379,13 @@ footer {
 }
 
 .contribution-box:nth-child(1) {
-	background-color: rgba(163, 190, 140, 0.15);
-	border: 2px solid #8FBC94;
+	background-color: rgba(89, 139, 231, 0.1);
+	border: 2px solid var(--primary-blue);
 }
 
 .contribution-box:nth-child(2) {
-	background-color: rgba(208, 135, 112, 0.1);
-	border: 2px solid var(--nord12);
+	background-color: rgba(89, 139, 231, 0.15);
+	border: 2px solid var(--primary-blue);
 }
 
 .contribution-box:hover {
@@ -378,13 +394,13 @@ footer {
 }
 
 .contribution-box:nth-child(1):hover {
-	border-color: #7A9C7F;
-	background-color: rgba(163, 190, 140, 0.2);
+	border-color: var(--blue-hover);
+	background-color: rgba(89, 139, 231, 0.15);
 }
 
 .contribution-box:nth-child(2):hover {
-	border-color: var(--nord15);
-	background-color: rgba(208, 135, 112, 0.15);
+	border-color: var(--blue-hover);
+	background-color: rgba(89, 139, 231, 0.2);
 }
 
 .contribution-box h3 {
@@ -395,17 +411,18 @@ footer {
 }
 
 .contribution-box:nth-child(1) h3 {
-	color: #5A7C5A;
+	color: var(--primary-blue);
 }
 
 .contribution-box:nth-child(2) h3 {
-	color: var(--nord12);
+	color: var(--primary-blue);
 }
 
 .contribution-box p {
 	margin: 0;
 	line-height: 1.6;
-	color: var(--nord1);
+	color: #000000;
+	font-weight: 400;
 }
 
 .highlight {
@@ -415,8 +432,9 @@ footer {
 }
 
 .highlight-blue {
-	color: var(--nord9);
-	background-color: rgba(129, 161, 200, 0.15);
+	color: var(--primary-blue);
+	background-color: rgba(89, 139, 231, 0.25);
+	font-weight: 600;
 }
 
 .highlight-green {
@@ -436,25 +454,26 @@ footer {
 }
 
 .contribution-box:nth-child(1) strong {
-	color: #5A7C5A;
-	background-color: rgba(163, 190, 140, 0.25);
+	color: var(--primary-blue);
+	background-color: rgba(89, 139, 231, 0.3);
+	font-weight: 600;
 }
 
 .contribution-box:nth-child(2) strong {
-	color: var(--nord12);
-	background-color: rgba(208, 135, 112, 0.15);
+	color: var(--primary-blue);
+	background-color: rgba(89, 139, 231, 0.3);
+	font-weight: 600;
 }
 
 /* Math equation styling */
 .math-display {
 	text-align: center;
 	margin: 1.5em 0;
-	padding: 1.2em;
-	border-radius: 8px;
+	padding: 0.8em;
+	border-radius: 0;
 	overflow-x: auto;
-	border: 3px solid transparent;
-	background: linear-gradient(var(--nord5), var(--nord5)) padding-box,
-	            linear-gradient(135deg, var(--nord15), var(--nord9)) border-box;
+	background-color: #f8f9fa;
+	border: 2px dashed #cccccc;
 }
 
 .math-display .MathJax {
@@ -482,24 +501,24 @@ figure.table-figure figcaption {
 .table-styled {
 	width: 100%;
 	border-collapse: collapse;
-	font-family: 'Noto Serif', Georgia, serif;
-	border-top: 2px solid var(--nord1);
-	border-bottom: 2px solid var(--nord1);
+	font-family: 'Source Sans Pro', 'Lato', Verdana, Helvetica, sans-serif;
+	border-top: 2px solid #000000;
+	border-bottom: 2px solid #000000;
 }
 
 .table-styled th,
 .table-styled td {
 	padding: 0.8em 1em;
 	text-align: left;
-	border-bottom: 1px solid var(--nord4);
+	border-bottom: 1px solid #cccccc;
 }
 
 .table-styled th {
 	background-color: transparent;
-	color: var(--nord0);
+	color: rgb(51, 51, 51);
 	font-weight: 700;
 	font-size: 1em;
-	border-bottom: 2px solid var(--nord3);
+	border-bottom: 2px solid #999999;
 }
 
 .table-styled tbody tr {
@@ -511,11 +530,11 @@ figure.table-figure figcaption {
 }
 
 .table-styled tbody tr:hover {
-	background-color: var(--nord5);
+	background-color: var(--bg-alt);
 }
 
 .table-styled td {
-	color: var(--nord1);
+	color: #000000;
 	font-size: 0.95em;
 	line-height: 1.5;
 }
@@ -527,7 +546,7 @@ figure.table-figure figcaption {
 }
 
 .table-styled td strong {
-	color: var(--nord0);
+	color: rgb(51, 51, 51);
 	font-weight: 700;
 }
 
@@ -536,7 +555,7 @@ figcaption {
 	text-align: center;
 	margin: 0.5em 0 0 0;
 	font-size: 0.9em;
-	color: var(--nord3);
+	color: #999999;
 	font-style: italic;
 }
 

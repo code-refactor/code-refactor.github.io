@@ -3,10 +3,11 @@
 <head>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-	<link rel="icon" href="index_files/favicon.png" type="image/png">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:300,300i,400,400i,600,600i,700,700i&display=swap" rel="stylesheet">
 	<meta name="description" content="Refactoring Codebases through Library Design">
 	<meta name="keywords" content="research, computer science">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -55,19 +56,15 @@
 
 		<div class="authors">
 			<div class="author-names">
-				<span class="author-block"><a href="https://zzigak.github.io/">Žiga Kovačič</a><sup>*</sup><sup>1</sup>,</span>
-				<span class="author-block"><a href="https://celine-lee.github.io/">Celine Lee</a><sup>*</sup><sup>1</sup>,</span>
-				<span class="author-block"><a href="https://justinchiu.netlify.app/">Justin T Chiu</a><sup>*</sup><sup>2</sup>,</span>
-				<span class="author-block"><a href="https://wenting-zhao.github.io/">Wenting Zhao</a><sup>†</sup><sup>1</sup>,</span>
-				<span class="author-block"><a href="https://www.cs.cornell.edu/~ellisk/">Kevin Ellis</a><sup>†</sup><sup>1</sup></span>
+				<span class="author-block"><a href="https://zzigak.github.io/">Žiga Kovačič</a><sup>1</sup>,</span>
+				<span class="author-block"><a href="https://justinchiu.netlify.app/">Justin T Chiu</a><sup>2</sup>,</span>
+				<span class="author-block"><a href="https://celine-lee.github.io/">Celine Lee</a><sup>1</sup>,</span>
+				<span class="author-block"><a href="https://wenting-zhao.github.io/">Wenting Zhao</a><sup>1</sup>,</span>
+				<span class="author-block"><a href="https://www.cs.cornell.edu/~ellisk/">Kevin Ellis</a><sup>1</sup></span>
 			</div>
 			<div class="author-affiliations">
 				<span class="affiliation-block"><sup>1</sup>Cornell University,</span>
 				<span class="affiliation-block"><sup>2</sup>Cohere</span>
-			</div>
-			<div class="author-notes" style="text-align: center; margin-top: 0.5em; font-size: 0.9em; color: #666;">
-				<span><sup>*</sup> Equal contribution</span>
-				<span style="margin-left: 1em;"><sup>†</sup> Equal advisorship</span>
 			</div>
 		</div>
 
@@ -83,53 +80,185 @@
 		</nav>
 
 		<figure id="teaser">
-			<img src="images/minicode.svg" alt="teaser">
-			<figcaption style="text-align: center;">Given a collection of different code sources, where a source is either program or repository and an optional existing library, agents must refactor the code sources by designing a new modular and reusable library. Candidate refactorings are evaluated based on program simplicity (compression) across both the library and refactored sources, and are expected to maintain correctness of the original code sources (pass rate).</figcaption>
+			<img src="images/figure1_files-1.png" alt="teaser">
+			<figcaption style="text-align: center;">Overview of the refactoring problem. A refactoring task comprises a set of files. We refactor the files by designing a new library. Candidate refactorings are evaluated based on a refactoring metric, and are expected to maintain correctness of the original code sources (pass rate). We explore several refactoring metrics in this paper.</figcaption>
 		</figure>
 	</header>
 
 	<main>
-	<section>
+	<!-- <section>
 		<h2 id="abstract">Abstract</h2>
-		<p>Maintainable and general software allows developers to build robust applications efficiently, yet achieving these qualities often requires refactoring specialized solutions into reusable components. This challenge becomes particularly relevant as code agents become increasingly accurate at solving isolated programming problems. We investigate code agents' capacity to refactor code in ways supporting growth and reusability. We present both a method and a benchmark for refactoring: Librarian, a sample-and-rerank method for generating reusable libraries, and MiniCode, a benchmark where code agents must minimize and refactor multiple independent solutions into a joint library. Compared to state-of-the-art code agents, Librarian achieves strong results on both compression and correctness on MiniCode, obtaining compression rates 1.6-2x better than coding agents while also improving correctness.</p>
-	</section>
+		<p>Maintainable and general software allows developers to build robust applications efficiently, yet achieving these qualities often requires refactoring specialized solutions into reusable components. This challenge becomes particularly relevant as code agents become used to solve isolated one-off programming problems. We investigate code agents' capacity to refactor code in ways that support growth and reusability. We first investigate what makes a good refactoring, finding via simulation results and a human study that Minimum Description Length best correlates with preferable refactorings. We then present both a benchmark and a method for refactoring: MINICODE, a benchmark where multiple files must be refactored into a shared library, and LIBRARIAN, a sample-and-rerank method for generating reusable libraries. We compare LIBRARIAN to state-of-the-art library generation methods, and study it on real-world code bases</p>
+	</section> -->
+
 
 	<section>
-		<h2 id="demo">Demo</h2>
-		<figure id="demo-figure">
-			<div class="demo-wrapper">
-				<div class="container">
-					<div class="code-panel">
-						<div class="code-header" id="libraryFileName">library.py</div>
-						<div class="code-content" id="libraryContent"></div>
-					</div>
-					<div class="code-panel">
-						<div class="code-header" id="solutionFileName">solution.py</div>
-						<div class="code-content" id="solutionContent"></div>
-					</div>
-				</div>
-				<div class="status-badge">
-					<span class="phase-indicator"></span>
-					<span id="currentPhase">Loading...</span>
-					| Timestep <span id="timestepCount">0</span>
-				</div>
-			</div>
-			<figcaption style="text-align: center;">Librarian refactors competition coding solutions in MiniCode: Given a collection of code solutions, Librarian identifies useful abstractions and creates a library. It then rewrites each code solution using the library.</figcaption>
-		</figure>
-	</section>
-
-	<section>
-		<h2 id="contributions">Key Contributions</h2>
-		<div class="contributions-grid">
-			<a href="https://github.com/code-refactor/Librarian" target="_blank" class="contribution-box">
-				<p><strong>Librarian</strong> is a sample-and-rerank method that refactors codebases into reusable libraries. It clusters code to find shared structures, samples refactorings, and ranks them by simplicity and correctness. It achieves 1.6-2x better compression than top code agents while boosting accuracy.</p>
-			</a>
-			<a href="https://github.com/code-refactor/minicode" target="_blank" class="contribution-box">
-				<p><strong>MiniCode</strong> is a benchmark for testing code agents' ability to create unified libraries from multiple code sources, such as competition coding programs and Python repositories. It requires open-ended design and large-context understanding in order to craft simple libraries.</p>
-			</a>
+		<div style="background-color: #f8f9fa; border: 2px dashed #cccccc; padding: 2em; text-align: center; color: #666; margin: 2em 0;">
+			<strong style="font-size: 1.2em;">Abstract</strong><br><br>
+			Maintainable and general software allows developers to build robust applications efficiently, yet achieving these qualities often requires refactoring specialized solutions into reusable components. This challenge becomes particularly relevant as code agents become used to solve isolated one-off programming problems. We investigate code agents' capacity to refactor code in ways that support growth and reusability. We first investigate what makes a good refactoring, finding via simulation results and a human study that Minimum Description Length best correlates with preferable refactorings. We then present both a benchmark and a method for refactoring: <strong style="color: #3a7bd5;">MiniCode</strong>, a benchmark where multiple files must be refactored into a shared library, and <strong style="color: #3a7bd5;">Librarian</strong>, a sample-and-rerank method for generating reusable libraries. We compare Librarian to state-of-the-art library generation methods, and study it on real-world code bases.
 		</div>
 	</section>
 
+	<section>
+		<h2>Motivation: Technical Debt in the Age of AI</h2>
+		<p>Much of software engineering involves not writing new code, but rewriting existing code—debugging, optimizing, and refactoring. Poor rewrites lead to "technical debt," a pervasive issue costing the software industry an estimated $2 trillion annually. This problem may be amplified by the rise of Large Language Models (LLMs). While excellent at solving isolated programming tasks, their limited context can lead them to generate specialized, one-off solutions that add to a codebase's redundancy rather than reducing it. This raises a critical question:</p>
+		
+		<p style="text-align: center;"><strong style="color: #3a7bd5; font-size: 1.1em; font-weight: 550;">Can we use library learning to build code agents that perform large-scale, repository-level refactoring to create more reusable and maintainable software?</strong></p>
+	</section>
+
+	<section>
+		<h2>Problem Statement</h2>
+		<p>For now assume a placeholder metric <strong style="color: #3a7bd5;">$M$</strong> measuring refactoring quality; we seek to minimize <strong style="color: #3a7bd5;">$M$</strong> while preserving correctness. Given a task comprising files $\{\rho_n\}_{n=1}^N$, we output both a new library $\mathcal{L}$, as well as rewritten refactorings of the original files, $\{\rho_n'\}_{n=1}^N$. We define tests passed $\tau(\rho_n)$ as the set of unit tests $\rho_n$ passes, and consider both refactoring several files ($N > 1$) and also refactoring a single large file ($N = 1$).</p>
+		
+		<p>We optimize the following objective, which prefers passing at least the same tests as the original programs and minimizing the chosen metric <strong style="color: #3a7bd5;">$M$</strong>:</p>
+		
+		<div class="math-display">
+			$$\ell(\mathcal{L}, \{\rho_n'\}) = \begin{cases} \textcolor{#3a7bd5}{M}(\mathcal{L}, \{\rho_n'\}) & \forall \rho_n, \tau(\rho_n) \subseteq \tau(\rho_n') \\ \infty & \text{otherwise} \end{cases}$$
+		</div>
+	</section>
+
+	<section>
+		<h2>What makes a "good" refactoring?</h2>
+		<p>Before automating refactoring, we must first define what makes a redesign "good." Simply minimizing code length is not the answer, as this can lead to obfuscated and unreadable code, a practice known as "code golf". We investigated several quantitative metrics, from classic software engineering measures like the Maintainability Index (MI) to compression-based objectives like token count and Minimum Description Length (MDL).</p>
+
+		<h3>Asymptotic behavior of metrics in large-sample regime</h3>
+		<p>Are these metrics equally effective at encouraging modular and reusable libraries? To answer this question, we run LIBRARIAN on 15 CodeContests (each of three files) using MDL, tokens, maintainability index, and cyclomatic complexity, while varying the inference-time sample budget $K$.</p>
+		
+		<p>Tokens and MDL separate cleanly from classic software engineering metrics: optimizing tokens/MDL, both of which essentially compress the original programs, does not yield steady improvements in MI/CC, and vice-versa. To understand whether these libraries expose shared abstractions, we examine the average number of times that each library routine is used, and the average number of library invocations per library function. This teases apart tokens and MDL: optimizing MDL yields more reusable libraries (<strong style="color: #3a7bd5;">used about 8× per task</strong>), with each function called more often (<strong style="color: #3a7bd5;">called about 2.2× per function</strong>)—exceeding the other metrics we consider.</p>
+
+		<!-- Placeholder for asymptotic analysis figure -->
+		<figure class="table-figure">
+			<img src="images/scaling_grid-flat-1.png" alt="Asymptotic behavior of metrics" style="width: 100%; max-width: 100%;">
+			<figcaption style="text-align: center;">Asymptotic behavior of metrics for scoring libraries and refactorings. MDL produces libraries with higher function reuse compared to other metrics.</figcaption>
+		</figure>
+
+		<h3>Human evaluation of refactoring metrics</h3>
+		<div style="display: flex; gap: 2em; align-items: flex-start;">
+			<div style="flex: 1;">
+				<p>We perform a human study to corroborate the findings using the exact same CodeContests clusters. The human study compares tokens, MDL, and Maintainability Index by (1) refactoring clusters into libraries, (2) presenting human participants with the original sources and their refactorings under pairs of metrics, and (3) eliciting pairwise preferences from human participants.</p>
+				
+				<p>Humans prefer MDL-minimizing libraries, and although the preference is only statistically significant for MDL vs. MI, the data suggest a rank-order preference of <strong style="color: #3a7bd5;">MDL > Tokens > MI</strong>. We ran 14 participants (eliciting 129 judgments), and already we see a general preference for compression-based metrics (MDL and Tokens) with only MDL crossing the threshold of statistical significance.</p>
+			</div>
+			<div style="flex: 1;">
+				<!-- Placeholder for human study figure -->
+				<figure class="table-figure">
+					<img src="images/consensus_75_clean.png" alt="Human evaluation of refactoring objectives" style="width: 100%; max-width: 100%;">
+					<figcaption style="text-align: center;">Human evaluation of different refactoring objectives. Judges compare pairs of refactorings that both pass all test cases. MDL aligns best with human preferences.</figcaption>
+				</figure>
+			</div>
+		</div>
+
+		<p><strong style="color: #3a7bd5;">We therefore adopt $M_{MDL}$ as the primary objective in the remainder of this paper:</strong> In addition to support from this human study, (1) Bayesian arguments support MDL; (2) corner cases in the style of 'Perl golf' provide existence proofs of the liability of merely minimizing tokens; and (3) reasonable proxies for library reuse favor MDL.</p>
+	</section>
+
+	<section>
+		<h2>Method and Benchmark</h2>
+		
+		<h3>LIBRARIAN: Our Refactoring Method</h3>
+		<p>Now that we know how we can approximate what a good refactoring is, we introduce <strong style="color: #3a7bd5;">LIBRARIAN</strong>, our method for tackling the problem setup described above. LIBRARIAN generates a new library from a set of programs, while migrating the programs to use that new library, following a sample-and-rerank framework: prompting a backend LLM to sample K candidates, and picking the one minimizing the loss $\ell$.</p>
+		
+		<p>Naively, we would optimize:</p>
+		<div class="math-display">
+			$$
+			\mathcal{L}, \left\{ \rho'_n \right\} = \arg\min_{\mathcal{L}, \left\{ \rho'_n \right\}\in \mathrm{Sample}_K(\left\{ \rho_n \right\})} 
+			\ell(\mathcal{L}, \left\{ \rho'_n \right\})
+			$$
+		</div>
+		
+		<p>But this cannot work for large tasks with many programs, which would not fit into the context of most LLMs. Even long context models cannot process the entirety of e.g. the Linux kernel, and even if they could, it is not clear that such a strategy is the most efficient way of focusing the language model's attention. To address this, we wrap sample-and-rerank with a clustering algorithm that decomposes the task into manageable chunks.</p>
+		
+		<h4>How It Works:</h4>
+		<ol>
+			<li><strong style="color: #3a7bd5;">Clustering:</strong> Meaningful abstractions arise when programs share underlying functionality or structure. To surface these, we cluster the task's programs into small groups that are likely to share reusable structure, and refactor each cluster separately from the rest. This decomposition shrinks the prompt size, and gives independent searches for the best per-cluster refactoring, which may be more tractable. We use agglomerative clustering on code summaries generated by prompting a model to summarize each program, using text-embedding-ada-002 to embed descriptions of code sources for clustering.</li>
+			<li><strong style="color: #3a7bd5;">Sample-and-Rerank:</strong> For each cluster, we prompt an LLM to generate many candidate refactorings and then use our MDL objective to score and select the best one that passes all original unit tests. We accumulate a library across clusters, and when refactoring a cluster, add the accumulated library to the prompt. This lets abstractions discovered earlier carry forward across the collection.</li>
+			<li><strong style="color: #3a7bd5;">Library Accumulation:</strong> The simplest approach refactors each cluster independently and takes the union of each cluster's library. A more sophisticated approach accumulates a library across clusters, allowing abstractions discovered in one cluster to be useful in another cluster.</li>
+		</ol>
+		
+		<h3>MINICODE: Our Refactoring Benchmark</h3>
+		<p>MINICODE presents systems with a task comprising a set of programs, then asks them to refactor the programs into a unified library alongside refactorings of the original programs. There are two key desiderata for benchmark tasks:</p>
+		<ol>
+			<li>They should have related programs sharing latent abstractions</li>
+			<li>They should also be verifiable, to measure how well refactored programs preserve functional correctness</li>
+		</ol>
+
+		<figure class="table-figure">
+			<table class="table-styled">
+				<thead>
+					<tr>
+						<th><strong>Domain</strong></th>
+						<th><strong>Files</strong></th>
+						<th><strong>Tasks</strong></th>
+						<th><strong>Avg LoC</strong></th>
+						<th><strong>Avg Tests / Program</strong></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Code Contests</td>
+						<td>300</td>
+						<td>10</td>
+						<td>87</td>
+						<td>10</td>
+					</tr>
+					<tr>
+						<td>Transformers</td>
+						<td>10</td>
+						<td>1</td>
+						<td>538</td>
+						<td>181</td>
+					</tr>
+					<tr>
+						<td>Diffusers</td>
+						<td>11</td>
+						<td>2</td>
+						<td>685</td>
+						<td>75</td>
+					</tr>
+					<tr>
+						<td>Logo</td>
+						<td>300</td>
+						<td>1</td>
+						<td>10</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>Date</td>
+						<td>246</td>
+						<td>1</td>
+						<td>14</td>
+						<td>1</td>
+					</tr>
+				</tbody>
+			</table>
+			<figcaption style="text-align: center;">Table 1: MiniCode Statistics</figcaption>
+		</figure>
+
+		<h4>CodeContests</h4>
+		<p>Competition problems are crafted with specific variations of algorithmic approaches in mind, resulting in both shared latent concepts and the required test cases. As a result, competition coding is both verifiable, and ready to refactor. We therefore take solutions, prompts, and tests from CodeContests, a competition programming dataset.</p>
+
+		<h4>Huggingface Transformers Library</h4>
+		<p>We test refactoring across implementations of large language and vision–language models from the Huggingface transformers repository (modelling_&lt;name&gt;.py files, e.g., Qwen2, LLaMA, DeepSeek-V3). Unlike competition coding, these sources are production-scale and Huggingface requires that all changes pass an extensive suite of integration tests before merging into the main branch. A refactoring is only deemed correct if it passes the unmodified Transformers test suite, making this a high-stakes setting that requires correctness and compatibility.</p>
+
+		<h4>Huggingface Diffusers Library</h4>
+		<p>We test refactoring across implementations of diffusion models from the Huggingface diffusers repository (unet_&lt;name&gt;.py and scheduler_&lt;name&gt;.py files, e.g., Stable Diffusion UNet, DDPMScheduler), yielding two distinct tasks. Like Transformers, Diffusers requires that all changes pass a comprehensive suite of integration tests before merging into the main branch.</p>
+
+		<h4>Logo & Date</h4>
+		<p>The library learning literature already has existing benchmarks: Typically they seek to learn a single library from a task comprising many sources, and then test that library on holdout program synthesis tasks. Logo and Date were used in the recent related work REGAL, which we incorporate wholesale to understand how our new method compares to state-of-the-art library learning. The associated programming problems were created by humans, but their solutions were generated by gpt-3.5-turbo.</p>
+	</section>
+
+	<!-- <section>
+		<h2 id="contributions">Key Contributions</h2>
+		<div class="contributions-grid">
+			<a href="https://github.com/code-refactor/Librarian" target="_blank" class="contribution-box">
+				<p><strong>Librarian</strong> is our sample-and-rerank method that refactors codebases into reusable libraries. It clusters code, samples potential refactorings, and ranks them using Minimum Description Length to find a correct, simple, and reusable design.</p>
+			</a>
+			<a href="https://github.com/code-refactor/minicode" target="_blank" class="contribution-box">
+				<p><strong>MiniCode</strong> is our new benchmark for testing an agent's ability to refactor code. It includes tasks from competition programming and real-world repositories like Huggingface Transformers, requiring open-ended design and verifiability.</p>
+			</a>
+		</div>
+	</section> -->
+
+<!-- 
 	<section>
 		<h2 id="project-goal">Problem Statement</h2>
 		<p>Given multiple code sources that contain problem-
@@ -164,9 +293,9 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 		<p style="margin-top: 1em;">
 			Here, $p_{\text{LM}}(\mathcal{L})$ is the probability of the library under a language model, and $p_{\text{LM}}(\rho'_n\mid\mathcal{L})$ is the probability of the refactored program $\rho'_n$ given the library $\mathcal{L}$. The constraint $\tau(\rho_n) \leq \tau(\rho'_n)$ ensures that the refactored programs pass at least as many tests as the originals. The loss function $\ell$ thus encourages solutions that are both correct and have minimal description length, as measured by the language model.
 		</p>
-	</section>
+	</section> -->
 
-	<section>
+	<!-- <section>
 		<h2>The MiniCode Benchmark</h2>
 		<p>
     		We instantiate our evaluation across three splits of varying difficulty: large repositories, small repositories, and competition coding. In each of these domains, agents must understand a collection of code sources, synthesize a set of shared abstractions into a library, then refactor the code sources using that library.
@@ -241,137 +370,113 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 
     Check out the full benchmark <a href="https://github.com/code-refactor/minicode">here</a>.
 
-	</section>
+	</section> -->
 
 	<section>
-		<h2 id="librarian-method">Librarian: Refactoring Code to Create Libraries</h2>
-		<p>
-			Librarian is our method for refactoring existing code into a more organized and reusable library. By identifying common patterns and abstracting them into shared building blocks, Librarian compresses collections of programs while migrating them to use these new components—reducing overall code size and often improving functionality. The method operates on a simple sample-and-rerank framework, progressively building a library of useful functions to maximize our refactoring objective. <strong>Figure 1</strong> illustrates the overall process.
-		</p>
-		<p>
-			Librarian operates on a simple sample-and-rerank framework to maximize our refactoring objective described above. It maintains and grows a library of useful functions as part of this objective.
-		</p>
-		<p>Concretely, our framework follows:</p>
-		<div class="math-display">
-			$$
-			\mathcal{L}^\star, \left\{ \rho^\star_n \right\} = \arg\min_{\mathcal{L}, \left\{ \rho'_n \right\} \in \mathrm{Sample}(\left\{ \rho_n \right\})} 
-			\ell(\mathcal{L}, \left\{ \rho'_n \right\}).
-			$$
-		</div>
-		<h3>How It Works:</h3>
-		<ul>
-			<li><strong>Clustering:</strong> We group related input programs into "tuples" by having a language model summarize the code, then clustering these summaries. This focuses the language model's attention on relevant code chunks.</li>
-			<li><strong>Sampling Refactorings:</strong> For each tuple, Librarian retrieves relevant existing library functions. Then, using the original code and retrieved functions as context, a language model proposes K candidate refactorings.</li>
-			<li><strong>Ranking with Compression:</strong> All K candidates are evaluated. We select the refactoring that scores highest on quality and maintains (or improves) test accuracy compared to the original code. New, useful library functions from the chosen refactoring are then added to the Librarian library for future use.</li>
-		</ul>
+		<h2>What do we learn from running LIBRARIAN on MINICODE?</h2>
+		<p>We empirically study LIBRARIAN on MINICODE with the goal of understanding (1) the degree to which library abstractions are reused across programs, (2) how our method compares to state-of-the-art library learning on existing datasets, and (3) whether LIBRARIAN holds value for real-world repos.</p>
 
-	</section>
+		<h3>LIBRARIAN discovers reusable functions for competition programming—but some functions are only called once.</h3>
+		<p>We test on CodeContests with a cluster size of $S=3$ and a sample budget of $K=8$ draws from o4-mini, as reasoning models perform well on competition programming. The resulting refactors and libraries <strong style="color: #3a7bd5;">approximately halve the MDL</strong>, which incidentally reduces program size as well (<strong style="color: #3a7bd5;">44% relative reduction in token count</strong>). Pass rate modestly improves as an incidental consequence of sampling and filtering with test cases. Libraries average <strong style="color: #3a7bd5;">10 functions</strong>, each heavily reused: averaging <strong style="color: #3a7bd5;">5 uses per function</strong> within tasks comprising only 10 programs. But almost <strong style="color: #3a7bd5;">40% of library functions are only used once</strong>.</p>
 
-	<section>
-		<h2 id="results">Results</h2>
-		<p>We present the results for the CodeContests split of MiniCode below, comparing Librarian to Sonnet and codex-mini agent baselines.</p>
+		<p>A signature of the MDL objective is a preference for whatever a language model assigns high apriori probability to. Although a single-use function does not reduce line count or tokens—the function could simply be inlined—it improves MDL if it yields a more natural decomposition of the target programs. Indeed, human-written libraries sometimes include functions that are seldom used, provided they serve as a conceptually modular abstraction. We therefore see single-use functions as a feature, not a bug.</p>
+
+		<h3>Are these libraries useful for solving new, unseen programming problems?</h3>
+		<p>Library learning has long sought to learn libraries from training programs which then help solve new unseen program synthesis tasks. The Logo and Date datasets fit within this paradigm. Recently REGAL improved the state-of-the-art on these library learning datasets. Because our clustering is heavily inspired by REGAL, for fair comparison, we keep exactly their clustering setup but add MDL-based reranking using $K=5$ samples. Despite the simplicity of these datasets, we find value in our more complicated method. Sampling and reranking by MDL yields up to a <strong style="color: #3a7bd5;">41.8% relative improvement in solve rate</strong> on unseen programming problems, and even when the gains are more modest, we still improve upon the state-of-the-art.</p>
 
 		<figure class="table-figure">
-			<table class="table-styled">
-				<thead>
-					<tr>
-						<th><strong>Agent</strong></th>
-						<th><strong>Pass %</strong></th>
-						<th><strong>MDL %</strong></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>original</td>
-						<td>82.0</td>
-						<td>100.0</td>
-					</tr>
-					<tr>
-						<td>sonnet 3.7</td>
-						<td>93.9</td>
-						<td>107.4</td>
-					</tr>
-					<tr>
-						<td>sonnet 4</td>
-						<td>84.4</td>
-						<td>77.1</td>
-					</tr>
-					<tr>
-						<td>codex-mini</td>
-						<td>82.0</td>
-						<td>86.8</td>
-					</tr>
-					<tr>
-						<td>LIBRARIAN</td>
-						<td>90.67</td>
-						<td>53.0</td>
-					</tr>
-				</tbody>
-			</table>
-			<figcaption style="text-align: center;">Table 2: Results on the MiniCode CodeContests split</figcaption>
+			<div style="display: flex; gap: 2em; justify-content: center; flex-wrap: wrap;">
+				<div style="flex: 1; min-width: 300px;">
+					<table class="table-styled">
+						<thead>
+							<tr>
+								<th><strong>Metric</strong></th>
+								<th><strong>Value</strong></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Pass Rate</td>
+								<td>90.67% ±1.88</td>
+							</tr>
+							<tr>
+								<td>Pass Rate Improvement</td>
+								<td>6.33% ±1.41</td>
+							</tr>
+							<tr>
+								<td>MDL Ratio</td>
+								<td>0.53 ±0.03</td>
+							</tr>
+							<tr>
+								<td>Token Ratio</td>
+								<td>0.66 ±0.04</td>
+							</tr>
+							<tr>
+								<td>Library Functions</td>
+								<td>10.30 ±1.41</td>
+							</tr>
+							<tr>
+								<td>Avg Calls per Function</td>
+								<td>5.17 ±1.08</td>
+							</tr>
+							<tr>
+								<td>% Single Use Functions</td>
+								<td>38.03% ±4.88</td>
+							</tr>
+						</tbody>
+					</table>
+					<figcaption style="text-align: center;">Results for LIBRARIAN on 10 Code Contests tasks ($K=8,S=3$)</figcaption>
+				</div>
+				<div style="flex: 1; min-width: 300px;">
+					<table class="table-styled">
+						<thead>
+							<tr>
+								<th><strong>Dataset</strong></th>
+								<th><strong>Model</strong></th>
+								<th><strong>Pass Rate</strong></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td rowspan="2">Logo</td>
+								<td>REGAL (gpt-3.5-turbo)</td>
+								<td>49.3% ±1.1</td>
+							</tr>
+							<tr>
+								<td>LIBRARIAN (3.5-turbo)</td>
+								<td>69.9% ±0.9</td>
+							</tr>
+							<tr>
+								<td rowspan="2">Date</td>
+								<td>REGAL (gpt-3.5-turbo)</td>
+								<td>90.2% ±0.5</td>
+							</tr>
+							<tr>
+								<td>LIBRARIAN (3.5-turbo)</td>
+								<td>94.7% ±0.7</td>
+							</tr>
+						</tbody>
+					</table>
+					<figcaption style="text-align: center;">Solving holdout test program synthesis tasks using learned libraries</figcaption>
+				</div>
+			</div>
 		</figure>
 
+		<h3>Real-World Refactoring</h3>
+		<p>The HuggingFace Transformers library is used by nearly 400k GitHub projects. We deploy LIBRARIAN to 10 source files, using Claude Code to sample $K=15$ refactorings per cluster of size $S=5$, believing an agent such as Claude Code would excel at repo-level edits. LIBRARIAN distilled repeated abstractions such as MLPs, Attention, Decoder classes, RoPE helper functions, etc., lowering MDL to <strong style="color: #3a7bd5;">67.2% of its original value</strong> while still passing all integration tests. The top-3 refactorings based on MDL have an average of <strong style="color: #3a7bd5;">18 abstractions</strong> (functions, classes) in the library, each of which is called on average <strong style="color: #3a7bd5;">4.59 times</strong> in the refactored models.</p>
+
+		<p>For Diffusers, scheduler clusters yielded top-3 MDL refactorings with an average of <strong style="color: #3a7bd5;">12.3 functions</strong> and <strong style="color: #3a7bd5;">3.0 calls per function</strong>, while UNet refactorings produced richer abstractions with an average of <strong style="color: #3a7bd5;">17.0 functions/classes</strong> and <strong style="color: #3a7bd5;">3.43 calls each</strong>.</p>
+
+		<p>Refactoring at scale proved expensive: each refactoring took approximately 30 minutes to generate and test. But this is a one-off cost, and in our view, the refactored Transformers and Diffusers sources are much cleaner, and the new library is transparently reusable. <strong style="color: #3a7bd5;">To the best of our knowledge, this is the first time any library learning algorithm has been successfully applied to real-world software projects.</strong></p>
+
+		<!-- Placeholder for transformers illustration figure -->
 		<figure class="table-figure">
-			<table class="table-styled">
-				<thead>
-					<tr>
-						<th><strong>Agent</strong></th>
-						<th><strong>Pass rate (%)</strong></th>
-						<th><strong>MDL ratio (%)</strong></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>original</td>
-						<td>100</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>Claude Sonnet 3.7 planner, Claude Sonnet 3.7 implementer</td>
-						<td>78</td>
-						<td>514</td>
-					</tr>
-					<tr>
-						<td>Claude Sonnet 3.7 planner, o4-mini implementer</td>
-						<td>80</td>
-						<td>244</td>
-					</tr>
-				</tbody>
-			</table>
-			<figcaption style="text-align: center;">Table 3: Average results on MiniCode-repositories small, using Codex with o4-mini and Claude Code with Claude Sonnet 3.7</figcaption>
+			<img src="images/example_refactoring_cropped-1.png" alt="Representative result for refactoring HuggingFace Transformers using LIBRARIAN" style="width: 100%; max-width: 100%;">
+			<figcaption style="text-align: center;">Representative result for refactoring HuggingFace Transformers using LIBRARIAN</figcaption>
 		</figure>
 
-		<figure class="table-figure">
-			<table class="table-styled">
-				<thead>
-					<tr>
-						<th><strong>Agent</strong></th>
-						<th><strong>Pass Rate (%)</strong></th>
-						<th><strong>MDL Ratio (%)</strong></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>original</td>
-						<td>100</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>Claude Sonnet 3.7</td>
-						<td>84.3</td>
-						<td>152</td>
-					</tr>
-					<tr>
-						<td>Claude Sonnet 4</td>
-						<td>88.3</td>
-						<td>143.3</td>
-					</tr>
-				</tbody>
-			</table>
-			<figcaption style="text-align: center;">Table 5: Average results on MiniCode-repositories large, comparing the original code sources with Claude Sonnet 3.7 and Sonnet 4</figcaption>
-		</figure>
-
-		Check out the paper for the full CodeContests results, as well as repository results!
+		<h3>Learned libraries from real-world codebases are useful for unseen downstream refactoring tasks</h3>
+		<p>When a library learned on one cluster of Transformer files (5 models) is applied to refactor a second cluster, LIBRARIAN reduces the unseen cluster's MDL to <strong style="color: #3a7bd5;">73% of its original value</strong>, with an average of <strong style="color: #3a7bd5;">3.0 calls per library function</strong>. This demonstrates that LIBRARIAN learned libraries that can be repurposed to more compactly rewrite unseen real-world code sources.</p>
 	</section>
 
 	<section class="section" id="citation">
@@ -380,13 +485,13 @@ up new use cases as well by mining and formalizing latent shared abstractions.
 			<div class="citation-box">
 				<button class="copy" onclick="copyText()"><i class="fa fa-clipboard"></i></button>
 				<pre><code id="citation-content">@misc{kovacic2025refactoringcodebaseslibrarydesign,
-      title={Refactoring Codebases through Library Design}, 
-      author={Ziga Kovacic and Celine Lee and Justin Chiu and Wenting Zhao and Kevin Ellis},
+      title={Refactoring Codebases through Library Design},
+      author={Ziga Kovacic and Justin T. Chiu and Celine Lee and Wenting Zhao and Kevin Ellis},
       year={2025},
       eprint={2506.11058},
       archivePrefix={arXiv},
       primaryClass={cs.SE},
-      url={https://arxiv.org/abs/2506.11058}, 
+      url={https://arxiv.org/abs/2506.11058},
 }</code></pre>
 			</div>
 		</div>

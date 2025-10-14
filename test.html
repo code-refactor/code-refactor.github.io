@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+	<link rel="icon" href="index_files/favicon.png" type="image/png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:300,300i,400,400i,600,600i,700,700i&display=swap" rel="stylesheet">
+	<meta name="description" content="Refactoring Codebases through Library Design">
+	<meta name="keywords" content="research, computer science">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="./style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="./diff-viz-styles.css">
+	<link rel="stylesheet" href="./filesystem-explorer.css">
+	<title>Refactoring Codebases through Library Design</title>
+
+	<script>
+		window.MathJax = {
+			tex: {
+				inlineMath: [['$', '$'], ['\\(', '\\)']],
+				displayMath: [['$$', '$$'], ['\\[', '\\]']],
+				processEscapes: true,
+				processEnvironments: true
+			},
+			options: {
+				ignoreHtmlClass: 'tex2jax_ignore',
+				processHtmlClass: 'tex2jax_process'
+			}
+		};
+	</script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+	<script>
+		function copyText() {
+			var text = document.getElementById("citation-content")
+			navigator.clipboard.writeText(text.innerText)
+		}
+	</script>
+</head>
+
+<body>
+	<header>
+		<h1>Refactoring Codebases through Library Design</h1>
+
+		<div class="authors">
+			<div class="author-names">
+				<span class="author-block"><a href="https://zzigak.github.io/">Žiga Kovačič</a><sup>1</sup>,</span>
+				<span class="author-block"><a href="https://justinchiu.netlify.app/">Justin T Chiu</a><sup>2</sup>,</span>
+				<span class="author-block"><a href="https://celine-lee.github.io/">Celine Lee</a><sup>1</sup>,</span>
+				<span class="author-block"><a href="https://wenting-zhao.github.io/">Wenting Zhao</a><sup>1</sup>,</span>
+				<span class="author-block"><a href="https://www.cs.cornell.edu/~ellisk/">Kevin Ellis</a><sup>1</sup></span>
+			</div>
+			<div class="author-affiliations">
+				<span class="affiliation-block"><sup>1</sup>Cornell University,</span>
+				<span class="affiliation-block"><sup>2</sup>Cohere</span>
+			</div>
+		</div>
+
+		<nav>
+			<ul>
+				<li><a href="https://arxiv.org/abs/2506.11058" target="_blank" class="nav-button"><i class="ai ai-arxiv"></i> arXiv</a></li>
+				<li><a href="https://github.com/code-refactor/minicode" target="_blank" class="nav-button"><i class="fa-brands fa-github"></i> MiniCode</a></li>
+				<li><a href="https://github.com/code-refactor/Librarian" target="_blank" class="nav-button"><i class="fa-brands fa-github"></i> Librarian</a></li>
+				<li><a href="#citation" class="nav-button"><i class="fa-solid fa-quote-right"></i> Citation</a></li>
+			</ul>
+		</nav>
+
+		<figure id="teaser">
+			<img src="images/teaser.png" alt="High-level diagram of the refactoring process" style="width: 80%; margin: auto; display: block;">
+			<figcaption style="text-align: center;">Our work investigates whether AI agents can refactor multiple, redundant code files by automatically designing a shared, reusable library, improving the overall quality and maintainability of the codebase.</figcaption>
+		</figure>
+	</header>
+
+	<main>
+		<section>
+			<h2 id="motivation">Motivation: Technical Debt in the Age of AI</h2>
+			<p>
+				Much of software engineering involves not writing new code, but rewriting existing code—debugging, optimizing, and refactoring. Poor rewrites lead to "technical debt," a pervasive issue costing the software industry an estimated $2 trillion annually. This problem may be amplified by the rise of Large Language Models (LLMs). While excellent at solving isolated programming tasks, their limited context can lead them to generate specialized, one-off solutions that add to a codebase's redundancy rather than reducing it. This raises a critical question: can we build code agents that perform large-scale, repository-level refactoring to create more reusable and maintainable software? [cite: 28]
+			</p>
+		</section>
+
+		<section>
+			<h2 id="metric">What Makes a "Good" Refactoring?</h2>
+			<p>
+				Before automating refactoring, we must first define what makes a redesign "good." Simply minimizing code length is not the answer, as this can lead to obfuscated and unreadable code, a practice known as "code golf". We investigated several quantitative metrics, from classic software engineering measures like the Maintainability Index (MI) to compression-based objectives like token count and Minimum Description Length (MDL).
+			</p>
+			<p>
+				Through both a human preference study and asymptotic analysis, we found a clear winner: **Minimum Description Length (MDL)**[cite: 19]. MDL, which measures the "naturalness" or predictability of code to a reference language model, best correlated with the refactorings that human developers preferred[cite: 263]. Furthermore, optimizing for MDL produced libraries with higher function reuse compared to other metrics[cite: 177]. This established a principled objective for our automated refactoring agent.
+			</p>
+			<figure>
+				<img src="images/human_study.png" alt="Graph showing human preference for MDL" style="width: 50%; margin: auto; display: block;">
+				<figcaption style="text-align: center;">Figure 4 from our paper: In a pairwise comparison study, human evaluators significantly preferred refactorings optimized for Minimum Description Length (MDL) over those optimized for Maintainability Index (MI)[cite: 263].</figcaption>
+			</figure>
+		</section>
+
+		<section>
+			<h2 id="approach">Our Approach: LIBRARIAN and MINICODE</h2>
+			<p>
+				We introduce **LIBRARIAN**, a method for automating code refactoring. LIBRARIAN operates on a sample-and-rerank framework: it prompts an LLM to generate many candidate refactorings and then uses our MDL objective to score and select the best one that passes all original unit tests. To scale to large codebases, it first intelligently clusters similar files to break the problem into smaller, manageable chunks[cite: 32].
+			</p>
+			<p>
+				To evaluate LIBRARIAN and other future methods, we also present **MINICODE**, a new benchmark for repository-level refactoring. MINICODE requires agents to perform open-ended library design from scratch, verifies correctness using existing test suites, and demands large-context understanding across multiple files.
+			</p>
+			<div class="contributions-grid" style="margin-top: 2em;">
+				<a href="https://github.com/code-refactor/Librarian" target="_blank" class="contribution-box">
+					<p><strong>Librarian</strong> is our sample-and-rerank method that refactors codebases into reusable libraries. It clusters code, samples potential refactorings, and ranks them using Minimum Description Length to find a correct, simple, and reusable design.</p>
+				</a>
+				<a href="https://github.com/code-refactor/minicode" target="_blank" class="contribution-box">
+					<p><strong>MiniCode</strong> is our new benchmark for testing an agent's ability to refactor code. It includes tasks from competition programming and real-world repositories like Huggingface Transformers, requiring open-ended design and verifiability.</p>
+				</a>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="demo">Interactive Demo: LIBRARIAN in Action</h2>
+			<figure id="demo-figure">
+				<div class="demo-wrapper">
+					<div class="container">
+						<div class="code-panel">
+							<div class="code-header" id="libraryFileName">library.py</div>
+							<div class="code-content" id="libraryContent"></div>
+						</div>
+						<div class="code-panel">
+							<div class="code-header" id="solutionFileName">solution.py</div>
+							<div class="code-content" id="solutionContent"></div>
+						</div>
+					</div>
+					<div class="status-badge">
+						<span class="phase-indicator"></span>
+						<span id="currentPhase">Loading...</span>
+						| Timestep <span id="timestepCount">0</span>
+					</div>
+				</div>
+				<figcaption style="text-align: center;">Librarian refactors competition coding solutions in MiniCode: Given a collection of code solutions, Librarian identifies useful abstractions and creates a library. It then rewrites each code solution using the library.</figcaption>
+			</figure>
+		</section>
+		
+		<section>
+			<h2 id="results">Key Experiment: Refactoring Huggingface Transformers</h2>
+			<p>
+				To test LIBRARIAN on a real-world challenge, we applied it to ten core model implementation files from the popular Huggingface Transformers library[cite: 360]. This is a complex, production-scale codebase used in thousands of projects. LIBRARIAN successfully identified and extracted shared abstractions like `BaseAttention`, `BaseMLP`, and `BaseDecoderLayer` into a new, unified library, all while passing 100% of the original integration tests.
+			</p>
+			<p>
+				The refactoring reduced the codebase's MDL to just **67.2%** of its original value. To put this in perspective, an ongoing manual refactoring effort by Huggingface engineers on the same files achieved a 66.5% MDL ratio, and a ceiling estimated by the authors reached 62%[cite: 408, 409]. This result demonstrates that LIBRARIAN is capable of performing a complex software redesign task at a **near-human level of competence**.
+			</p>
+			<figure>
+				<img src="images/huggingface_refactor.png" alt="Diagram showing the refactoring of Huggingface code" style="width: 100%; margin: auto; display: block;">
+				<figcaption style="text-align: center;">A representative result showing how LIBRARIAN refactored original model files (e.g., Qwen2, Llama) by extracting shared functions and classes into a central library, resulting in cleaner, shorter programs that use direct calls and inheritance[cite: 404].</figcaption>
+			</figure>
+		</section>
+
+		<section class="section" id="citation">
+			<div class="container is-max-desktop content">
+				<h2 id="citation-header">Citation</h2>
+				<div class="citation-box">
+					<button class="copy" onclick="copyText()"><i class="fa fa-clipboard"></i></button>
+					<pre><code id="citation-content">@misc{kovacic2025refactoringcodebaseslibrarydesign,
+      title={Refactoring Codebases through Library Design}, 
+      author={Ziga Kovacic and Justin T Chiu and Celine Lee and Wenting Zhao and Kevin Ellis},
+      year={2025},
+      eprint={2506.11058},
+      archivePrefix={arXiv},
+      primaryClass={cs.SE}
+}</code></pre>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<p class="license">Website template from <a href="https://github.com/zzigak/research-project-website">research-project-website</a>.</p>
+	</footer>
+	<script src="./script.js"></script>
+	<script src="./filesystem-explorer.js"></script>
+	<script src="./filesystem-refactored.js"></script>
+</body>
+</html>
