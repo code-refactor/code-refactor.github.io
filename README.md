@@ -1,7 +1,7 @@
 # Refactoring Codebases through Library Design
 This repo includes the official implementation of the **Librarian** method introduced in the paper `Refactoring Code through Library Design`, specifically applied to the CodeContests dataset.
 
-[Žiga Kovačič](https://zzigak.github.io/)\* $^{1}$, [Justin T Chiu](https://justinchiu.netlify.app/)\* $^{2}$, [Celine Lee](https://celine-lee.github.io/)\* $^{1}$, [Wenting Zhao](https://wenting-zhao.github.io/) $^1$, [Kevin Ellis](https://www.cs.cornell.edu/~ellisk/) $^1$.<br>
+[Žiga Kovačič](https://zzigak.github.io/) $^{1}$, [Justin T Chiu](https://justinchiu.netlify.app/) $^{2}$, [Celine Lee](https://celine-lee.github.io/) $^{1}$, [Wenting Zhao](https://wenting-zhao.github.io/) $^1$, [Kevin Ellis](https://www.cs.cornell.edu/~ellisk/) $^1$.<br>
 
 $^1$ Cornell University, $^2$ Cohere
 
